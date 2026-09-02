@@ -9,6 +9,7 @@ verified data (`--design-system` for medical clinic, `--domain landing`,
 | File | Where it goes |
 |---|---|
 | `hero-section.html` | Elementor **HTML widget** |
+| `doctor-portrait.html` | A second Elementor **HTML widget** — style and markup in one block |
 | `hero-section.css` | The widget's **Advanced ▸ Custom CSS** panel |
 | `hero-section.preview.html` | Standalone build for local checking — not for WordPress |
 
@@ -122,3 +123,33 @@ The `trust-authority-conversion` pattern specifies *"Navy/Grey corporate. Trust 
 - Contrast audit: 0 failures, lowest 5.24:1
 - Touch targets: 54, 54, 52, 80 px tall
 - `prefers-contrast: more` and `prefers-reduced-motion` render correctly
+
+
+---
+
+## `doctor-portrait.html` — the caption that would not show
+
+The overlay caption rendered at `display: none` and `0×0`.
+
+`display` was the one property the CSS never set. Themes commonly ship
+`figcaption { display: none }`, and with nothing to oppose it that rule won
+outright — every *other* property carried `!important`, which is why the symptom
+looked like a z-index or positioning fault when it was neither.
+
+The fix states `display` / `visibility` / `opacity` explicitly and scopes every
+selector to `.custom-doctor-image-wrap`, so the rules outrank even a bare
+`figcaption { ... !important }` coming from the theme.
+
+Verified against nine theme rules that break overlay captions — `display:none`
+(plain and `!important`), `position:static!important`, `visibility:hidden`,
+`opacity:0`, `clip-path:inset(50%)`, and an `img` lifted to `z-index:99` —
+asserting on **painted pixels**, not computed style: 9/9 pass, with the photo
+never bleeding through the text.
+
+Text contrast was measured end-to-end against a **pure-white photograph**, the
+worst case for a dark gradient: name **8.04:1**, subtitle **8.72:1**.
+
+Also aligned to the hero's system: brand family (`#2E9CC5` hue), Figtree/Noto
+Sans instead of the unloaded `Inter`, 8px radius instead of 22px, weight 700
+instead of 800, and the same brand tick rule as the hero eyebrow.
+`pointer-events: none` was dropped — it blocked text selection for no benefit.
