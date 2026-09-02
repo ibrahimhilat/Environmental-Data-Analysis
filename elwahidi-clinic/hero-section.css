@@ -2,9 +2,9 @@
    Dr. Ahmad Al-Wahidi Clinic — Hero Section
    PART 2 of 2 : paste into the widget's Custom CSS panel.
 
-   OPTIONAL — drop in a real clinical photograph and the glass
-   gains true depth. Add the line below inside the selector block:
-   --elw-hero-photo: url("https://your-site.com/wp-content/ot.jpg");
+   OPTIONAL — a real photograph gives the glass something with
+   edges to refract. Add this line inside the selector block:
+   --elw-hero-photo: url("https://your-site.com/wp-content/or.jpg");
    ============================================================ */
 
 selector {
@@ -14,11 +14,9 @@ selector {
   --elw-black: #000000;
   --elw-soft-blue: #68B7EE;
   --elw-white: #FFFFFF;
-  --elw-border: rgb(150 150 150 / 0.34);
   --elw-muted: rgb(0 0 0 / 0.64);
-  --elw-shadow: 0 1.75rem 4rem rgb(9 51 74 / 0.13);
-  --elw-glass-radius: 14px;
-  --elw-glass-hairline: rgb(9 51 74 / 0.13);
+  --elw-hairline: rgb(9 51 74 / 0.14);
+  --elw-glass-radius: 16px;
   --elw-ease: cubic-bezier(0.22, 1, 0.36, 1);
   width: 100%;
   margin: 0;
@@ -39,7 +37,7 @@ selector *::after {
 }
 
 /* ============================================================
-   SECTION — SOFT CLINICAL LIGHT (no grids, no geometry)
+   SECTION GROUND
    ============================================================ */
 
 selector .elw-hero-shell {
@@ -52,163 +50,102 @@ selector .elw-hero-section {
   padding-block: clamp(3.5rem, 6.5vw, 6.5rem);
   padding-inline: clamp(1rem, 4vw, 3.5rem);
   overflow: hidden;
-  background:
-    linear-gradient(
-      178deg,
-      #FFFFFF 0%,
-      #F2FAFE 34%,
-      #E4F3FC 72%,
-      #F7FCFE 100%
-    );
+  background: #EAF4FA;
 }
 
-/* Real photograph layer — invisible until --elw-hero-photo is set. */
 selector .elw-hero-section__photo {
   position: absolute;
   z-index: 0;
   inset: 0;
   background-image: var(--elw-hero-photo, none);
-  background-position: 72% 28%;
+  background-position: 68% 26%;
   background-size: cover;
-  filter: grayscale(1) contrast(1.06);
-  opacity: 0.3;
-  -webkit-mask-image: linear-gradient(205deg, #000 0%, rgb(0 0 0 / 0.35) 48%, transparent 78%);
-  mask-image: linear-gradient(205deg, #000 0%, rgb(0 0 0 / 0.35) 48%, transparent 78%);
+  filter: grayscale(1) contrast(1.08);
+  opacity: 0.42;
   pointer-events: none;
 }
 
-/* Diffuse coloured light — this is what the glass actually refracts. */
+/* Light pools with defined edges — what the pane blurs and bends. */
 selector .elw-hero-section__ambient {
   position: absolute;
   z-index: 0;
-  inset: -18% -10%;
-  background:
-    radial-gradient(42rem 32rem at 8% 2%, rgb(104 183 238 / 0.62), transparent 62%),
-    radial-gradient(34rem 30rem at 96% 20%, rgb(24 146 194 / 0.42), transparent 64%),
-    radial-gradient(30rem 26rem at 78% 96%, rgb(245 147 39 / 0.16), transparent 66%),
-    radial-gradient(38rem 34rem at 34% 88%, rgb(24 146 194 / 0.22), transparent 68%);
-  pointer-events: none;
-}
-
-selector .elw-hero-section__light {
-  position: absolute;
-  z-index: 0;
   inset: 0;
   background:
-    linear-gradient(
-      118deg,
-      rgb(255 255 255 / 0.72) 0%,
-      rgb(255 255 255 / 0) 38%
-    ),
-    linear-gradient(
-      0deg,
-      rgb(255 255 255 / 0.55) 0%,
-      rgb(255 255 255 / 0) 42%
-    );
+    radial-gradient(22rem 22rem at 14% 12%, rgb(255 255 255 / 0.95), transparent 58%),
+    radial-gradient(26rem 20rem at 88% 6%, rgb(24 146 194 / 0.55), transparent 56%),
+    radial-gradient(20rem 18rem at 72% 92%, rgb(245 147 39 / 0.24), transparent 58%),
+    radial-gradient(30rem 24rem at 30% 96%, rgb(24 146 194 / 0.34), transparent 60%);
   pointer-events: none;
-}
-
-selector .elw-hero-section__cards {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  width: min(100%, 82rem);
-  margin-inline: auto;
-  grid-template-columns: minmax(0, 1.24fr) minmax(20rem, 0.76fr);
-  align-items: stretch;
-  gap: clamp(1rem, 1.8vw, 1.75rem);
 }
 
 /* ============================================================
-   THE GLASS
+   THE PANE — ONE SHEET OF GLASS FOR THE WHOLE SNIPPET
    ============================================================ */
 
-selector .elw-hero-card,
-selector .elw-hero-figures {
+selector .elw-hero-pane {
   position: relative;
-  min-width: 0;
+  z-index: 1;
+  width: min(100%, 82rem);
+  margin-inline: auto;
 }
 
-selector .elw-hero-card {
-  display: flex;
-  flex-direction: column;
+selector .elw-hero-pane__surface {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: var(--elw-glass-radius);
+  background: rgb(255 255 255 / 0.4);
+  box-shadow:
+    0 2rem 4.5rem rgb(9 51 74 / 0.16),
+    inset 0 0 0 1px rgb(255 255 255 / 0.55),
+    inset 1.5px 1.5px 0 rgb(255 255 255 / 0.9),
+    inset -1.5px -1.5px 0 rgb(9 51 74 / 0.07);
+  -webkit-backdrop-filter: blur(40px) saturate(1.6);
+  backdrop-filter: blur(40px) saturate(1.6);
+  pointer-events: none;
+  transition: box-shadow 0.6s var(--elw-ease);
+}
+
+/* A single narrow sheen along the top edge. No colour ramps. */
+selector .elw-hero-pane__surface::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 22%;
+  border-radius: var(--elw-glass-radius) var(--elw-glass-radius) 0 0;
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.4) 0%,
+    rgb(255 255 255 / 0) 100%
+  );
+  content: "";
+}
+
+selector .elw-hero-pane:hover .elw-hero-pane__surface {
+  box-shadow:
+    0 2.5rem 5.5rem rgb(9 51 74 / 0.2),
+    inset 0 0 0 1px rgb(255 255 255 / 0.75),
+    inset 1.5px 1.5px 0 rgb(255 255 255 / 0.98),
+    inset -1.5px -1.5px 0 rgb(9 51 74 / 0.09);
+}
+
+selector .elw-hero-pane__inner {
+  position: relative;
+  z-index: 1;
   padding: clamp(1.5rem, 2.8vw, 2.85rem);
 }
 
-selector .elw-hero-card__surface,
-selector .elw-hero-figures__surface {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 0.62);
-  border-radius: var(--elw-glass-radius);
-  background: linear-gradient(
-    140deg,
-    rgb(255 255 255 / 0.52) 0%,
-    rgb(255 255 255 / 0.22) 48%,
-    rgb(255 255 255 / 0.38) 100%
-  );
-  box-shadow:
-    var(--elw-shadow),
-    inset 1px 1px 0 rgb(255 255 255 / 0.85),
-    inset -1px -1px 0 rgb(255 255 255 / 0.28);
-  -webkit-backdrop-filter: blur(32px) saturate(1.75);
-  backdrop-filter: blur(32px) saturate(1.75);
-  pointer-events: none;
-  transition:
-    border-color 0.55s var(--elw-ease),
-    box-shadow 0.55s var(--elw-ease),
-    background-color 0.55s var(--elw-ease);
-}
-
-/* Specular sweep across the top-left of the pane. */
-selector .elw-hero-card__surface::before,
-selector .elw-hero-figures__surface::before {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    116deg,
-    rgb(255 255 255 / 0.62) 0%,
-    rgb(255 255 255 / 0.14) 22%,
-    rgb(255 255 255 / 0) 46%
-  );
-  content: "";
-}
-
-/* Cool refraction settling in the lower-right corner. */
-selector .elw-hero-card__surface::after,
-selector .elw-hero-figures__surface::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    308deg,
-    rgb(104 183 238 / 0.26) 0%,
-    rgb(104 183 238 / 0.06) 24%,
-    rgb(255 255 255 / 0) 52%
-  );
-  content: "";
-}
-
-selector .elw-hero-card:hover .elw-hero-card__surface,
-selector .elw-hero-figures:hover .elw-hero-figures__surface {
-  border-color: rgb(255 255 255 / 0.92);
-  box-shadow:
-    0 2.25rem 5rem rgb(9 51 74 / 0.18),
-    inset 1px 1px 0 rgb(255 255 255 / 0.95),
-    inset -1px -1px 0 rgb(255 255 255 / 0.35);
-}
-
-selector .elw-hero-card > *:not(.elw-hero-card__surface) {
-  position: relative;
-  z-index: 1;
-}
-
 /* ============================================================
-   EYEBROW
+   HEAD
    ============================================================ */
 
-selector .elw-hero-card__eyebrow {
+selector .elw-hero-head {
+  padding-bottom: clamp(1.35rem, 2.2vw, 1.85rem);
+  border-bottom: 1px solid var(--elw-hairline);
+}
+
+selector .elw-hero-eyebrow {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -220,11 +157,11 @@ selector .elw-hero-card__eyebrow {
   text-transform: uppercase;
 }
 
-selector .elw-hero-card__eyebrow > span:last-child {
+selector .elw-hero-eyebrow > span:last-child {
   color: var(--elw-muted);
 }
 
-selector .elw-hero-card__eyebrow-mark {
+selector .elw-hero-eyebrow__mark {
   position: relative;
   display: inline-grid;
   width: 22px;
@@ -233,13 +170,13 @@ selector .elw-hero-card__eyebrow-mark {
   place-items: center;
   border: 1px solid rgb(24 146 194 / 0.7);
   border-radius: 50%;
-  background: rgb(255 255 255 / 0.5);
+  background: rgb(255 255 255 / 0.55);
   transition:
     transform 0.6s var(--elw-ease),
     border-color 0.6s var(--elw-ease);
 }
 
-selector .elw-hero-card__eyebrow-mark::before {
+selector .elw-hero-eyebrow__mark::before {
   width: 5px;
   height: 5px;
   border-radius: 50%;
@@ -247,12 +184,12 @@ selector .elw-hero-card__eyebrow-mark::before {
   content: "";
 }
 
-selector .elw-hero-card:hover .elw-hero-card__eyebrow-mark {
+selector .elw-hero-eyebrow:hover .elw-hero-eyebrow__mark {
   border-color: var(--elw-black);
   transform: rotate(45deg);
 }
 
-selector .elw-hero-card__eyebrow-divider {
+selector .elw-hero-eyebrow__divider {
   width: min(7vw, 3.5rem);
   height: 1px;
   flex: 0 1 auto;
@@ -264,80 +201,95 @@ selector .elw-hero-card__eyebrow-divider {
 }
 
 /* ============================================================
-   IDENTITY
+   BODY — TWO COLUMNS SPLIT BY A HAIRLINE, NOT A GAP
    ============================================================ */
 
-selector .elw-hero-card__identity {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: clamp(1.75rem, 3vw, 2.75rem);
-  padding-bottom: clamp(1.25rem, 2vw, 1.75rem);
-  border-bottom: 1px solid var(--elw-glass-hairline);
+selector .elw-hero-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(18rem, 0.68fr);
 }
 
-selector .elw-hero-card__number {
-  color: rgb(9 51 74 / 0.34);
-  font-size: clamp(2.25rem, 3.6vw, 3.25rem);
+selector .elw-hero-main {
+  min-width: 0;
+  padding: clamp(1.75rem, 3vw, 2.75rem) clamp(1.5rem, 2.8vw, 2.75rem)
+    clamp(1.75rem, 3vw, 2.75rem) 0;
+}
+
+selector .elw-hero-side {
+  min-width: 0;
+  padding: clamp(1.75rem, 3vw, 2.75rem) 0 clamp(1.75rem, 3vw, 2.75rem)
+    clamp(1.5rem, 2.8vw, 2.75rem);
+  border-left: 1px solid var(--elw-hairline);
+}
+
+/* ============================================================
+   SECTION MARKER
+   ============================================================ */
+
+selector .elw-hero-marker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.35rem, 2.2vw, 1.85rem);
+}
+
+selector .elw-hero-marker__number {
+  color: rgb(9 51 74 / 0.32);
+  font-size: 1.5rem;
   font-weight: 300;
-  line-height: 0.9;
+  line-height: 1;
   letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
 }
 
-selector .elw-hero-card__icon {
+selector .elw-hero-marker__icon {
   display: grid;
-  width: 2.5rem;
-  height: 2.5rem;
-  flex: 0 0 2.5rem;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
   place-items: center;
   color: var(--elw-primary);
-  transition: color 0.55s var(--elw-ease);
 }
 
-selector .elw-hero-card__icon svg {
-  width: 24px;
-  height: 24px;
+selector .elw-hero-marker__icon svg {
+  width: 22px;
+  height: 22px;
 }
 
-selector .elw-hero-card:hover .elw-hero-card__icon {
-  color: var(--elw-black);
+selector .elw-hero-marker__label {
+  color: var(--elw-muted);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* ============================================================
-   COPY PLATE
+   TYPE
    ============================================================ */
 
-selector .elw-hero-card__copy-plate {
-  margin-top: clamp(1.5rem, 2.6vw, 2.25rem);
-}
-
-selector .elw-hero-card__title {
+selector .elw-hero-title {
   max-width: 16ch;
   margin: 0;
   color: var(--elw-black);
-  font-size: clamp(2.35rem, 4.7vw, 4.15rem);
+  font-size: clamp(2.35rem, 4.6vw, 4.05rem);
   font-weight: 800;
   line-height: 0.96;
   letter-spacing: -0.05em;
   text-wrap: balance;
 }
 
-selector .elw-hero-card__title--sm {
-  max-width: none;
-  font-size: clamp(1.5rem, 2.1vw, 1.95rem);
-  line-height: 1;
-}
-
-selector .elw-hero-card__title > span {
+selector .elw-hero-title > span,
+selector .elw-hero-side__title > span {
   position: relative;
   z-index: 0;
   display: inline-block;
   color: var(--elw-black);
 }
 
-selector .elw-hero-card__title > span::after {
+selector .elw-hero-title > span::after,
+selector .elw-hero-side__title > span::after {
   position: absolute;
   z-index: -1;
   right: 0;
@@ -348,14 +300,15 @@ selector .elw-hero-card__title > span::after {
   content: "";
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.85s var(--elw-ease) 0.55s;
+  transition: transform 0.85s var(--elw-ease) 0.5s;
 }
 
-selector .elw-hero-section.elw-is-visible .elw-hero-card__title > span::after {
+selector .elw-hero-section.elw-is-visible .elw-hero-title > span::after,
+selector .elw-hero-section.elw-is-visible .elw-hero-side__title > span::after {
   transform: scaleX(1);
 }
 
-selector .elw-hero-card__specialty {
+selector .elw-hero-specialty {
   max-width: 46ch;
   margin: clamp(1.35rem, 2.2vw, 1.85rem) 0 0;
   padding-left: 1rem;
@@ -366,7 +319,7 @@ selector .elw-hero-card__specialty {
   line-height: 1.5;
 }
 
-selector .elw-hero-card__description {
+selector .elw-hero-description {
   max-width: 62ch;
   margin: clamp(1.15rem, 1.9vw, 1.6rem) 0 0;
   color: var(--elw-muted);
@@ -375,36 +328,49 @@ selector .elw-hero-card__description {
   line-height: 1.75;
 }
 
-selector .elw-hero-card--record .elw-hero-card__description {
-  margin-top: 0.85rem;
+selector .elw-hero-side__title {
+  margin: 0;
+  color: var(--elw-black);
+  font-size: clamp(1.5rem, 2.1vw, 1.95rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+selector .elw-hero-side__note {
+  max-width: 42ch;
+  margin: 0.85rem 0 0;
+  color: var(--elw-muted);
   font-size: 0.9375rem;
+  font-weight: 400;
   line-height: 1.7;
 }
 
 /* ============================================================
-   INFO ROWS
+   ROWS
    ============================================================ */
 
-selector .elw-hero-card__content {
-  margin-top: clamp(1.5rem, 2.6vw, 2.25rem);
-  border-top: 1px solid var(--elw-glass-hairline);
+selector .elw-hero-rows {
+  margin-top: clamp(1.5rem, 2.4vw, 2rem);
+  border-top: 1px solid var(--elw-hairline);
 }
 
-selector .elw-hero-card__info-row {
+selector .elw-hero-row {
   position: relative;
   display: flex;
   align-items: center;
   gap: 0.9rem;
   padding: clamp(0.85rem, 1.4vw, 1.05rem) 0 clamp(0.85rem, 1.4vw, 1.05rem) 1.15rem;
-  border-bottom: 1px solid var(--elw-glass-hairline);
+  border-bottom: 1px solid var(--elw-hairline);
   transition: background-color 0.5s var(--elw-ease);
 }
 
-selector .elw-hero-card__info-row:hover {
-  background: rgb(255 255 255 / 0.4);
+selector .elw-hero-row:hover {
+  background: rgb(255 255 255 / 0.42);
 }
 
-selector .elw-hero-card__info-line {
+selector .elw-hero-row__line {
   position: absolute;
   top: 50%;
   left: 0;
@@ -415,16 +381,16 @@ selector .elw-hero-card__info-line {
   transition: height 0.55s var(--elw-ease);
 }
 
-selector .elw-hero-card__info-row:hover .elw-hero-card__info-line {
+selector .elw-hero-row:hover .elw-hero-row__line {
   height: 1.75rem;
 }
 
-selector .elw-hero-card__info-row--key .elw-hero-card__info-line {
+selector .elw-hero-row--key .elw-hero-row__line {
   height: 1.75rem;
   background: var(--elw-accent);
 }
 
-selector .elw-hero-card__info-icon {
+selector .elw-hero-row__icon {
   display: grid;
   width: 20px;
   height: 20px;
@@ -433,12 +399,12 @@ selector .elw-hero-card__info-icon {
   color: var(--elw-primary);
 }
 
-selector .elw-hero-card__info-icon svg {
+selector .elw-hero-row__icon svg {
   width: 20px;
   height: 20px;
 }
 
-selector .elw-hero-card__info-text {
+selector .elw-hero-row__text {
   color: var(--elw-muted);
   font-size: 0.875rem;
   font-weight: 500;
@@ -446,32 +412,32 @@ selector .elw-hero-card__info-text {
   font-variant-numeric: tabular-nums;
 }
 
-selector .elw-hero-card__info-row--key .elw-hero-card__info-text {
+selector .elw-hero-row--key .elw-hero-row__text {
   color: var(--elw-black);
   font-weight: 700;
 }
 
 /* ============================================================
-   LINK ROW
+   LINK
    ============================================================ */
 
-selector .elw-hero-card__row {
+selector .elw-hero-link {
   display: grid;
   align-items: center;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.35rem 1rem;
   padding: clamp(1rem, 1.7vw, 1.25rem) 0.85rem clamp(1rem, 1.7vw, 1.25rem) 1.15rem;
-  border-bottom: 1px solid var(--elw-glass-hairline);
+  border-bottom: 1px solid var(--elw-hairline);
   color: var(--elw-black);
   text-decoration: none;
   transition: background-color 0.5s var(--elw-ease);
 }
 
-selector .elw-hero-card__row:hover {
+selector .elw-hero-link:hover {
   background: rgb(255 255 255 / 0.55);
 }
 
-selector .elw-hero-card__row-label {
+selector .elw-hero-link__label {
   grid-column: 1;
   color: var(--elw-neutral);
   font-size: 11px;
@@ -481,7 +447,7 @@ selector .elw-hero-card__row-label {
   text-transform: uppercase;
 }
 
-selector .elw-hero-card__row-value {
+selector .elw-hero-link__value {
   grid-column: 1;
   color: var(--elw-black);
   font-size: 0.9375rem;
@@ -489,7 +455,7 @@ selector .elw-hero-card__row-value {
   line-height: 1.4;
 }
 
-selector .elw-hero-card__row-arrow {
+selector .elw-hero-link__arrow {
   grid-column: 2;
   grid-row: 1 / span 2;
   color: var(--elw-primary);
@@ -500,7 +466,7 @@ selector .elw-hero-card__row-arrow {
     transform 0.5s var(--elw-ease);
 }
 
-selector .elw-hero-card__row:hover .elw-hero-card__row-arrow {
+selector .elw-hero-link:hover .elw-hero-link__arrow {
   color: var(--elw-accent);
   transform: translate(0.2rem, -0.2rem);
 }
@@ -509,7 +475,7 @@ selector .elw-hero-card__row:hover .elw-hero-card__row-arrow {
    BUTTONS
    ============================================================ */
 
-selector .elw-hero-card__actions {
+selector .elw-hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
@@ -524,7 +490,7 @@ selector .elw-hero-btn {
   gap: 0.85rem;
   padding: 1rem clamp(1.25rem, 2vw, 1.75rem);
   border: 1px solid transparent;
-  border-radius: calc(var(--elw-glass-radius) - 6px);
+  border-radius: 8px;
   color: var(--elw-black);
   font-size: 0.875rem;
   font-weight: 700;
@@ -538,7 +504,7 @@ selector .elw-hero-btn {
 
 selector .elw-hero-btn--primary {
   background: var(--elw-soft-blue);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5);
   color: var(--elw-black);
 }
 
@@ -552,17 +518,17 @@ selector .elw-hero-btn--primary:hover .elw-hero-btn__icon {
 }
 
 selector .elw-hero-btn--secondary {
-  border-color: rgb(255 255 255 / 0.7);
-  background: rgb(255 255 255 / 0.34);
-  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 0.7);
+  border-color: rgb(255 255 255 / 0.75);
+  background: rgb(255 255 255 / 0.42);
+  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 0.75);
   color: var(--elw-black);
-  -webkit-backdrop-filter: blur(18px) saturate(1.6);
-  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
 }
 
 selector .elw-hero-btn--secondary:hover {
   border-color: var(--elw-black);
-  background: rgb(255 255 255 / 0.68);
+  background: rgb(255 255 255 / 0.72);
 }
 
 selector .elw-hero-btn__icon {
@@ -581,37 +547,9 @@ selector .elw-hero-btn__icon svg {
 }
 
 selector .elw-hero-btn:focus-visible,
-selector .elw-hero-card__row:focus-visible {
+selector .elw-hero-link:focus-visible {
   outline: 2px solid var(--elw-primary);
   outline-offset: 3px;
-}
-
-/* ============================================================
-   CLINICAL LINE
-   ============================================================ */
-
-selector .elw-hero-card__clinical-line {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  margin-top: auto;
-  padding-top: clamp(1.35rem, 2.2vw, 1.85rem);
-  color: var(--elw-neutral);
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-selector .elw-hero-card__clinical-line > span:last-child {
-  height: 1px;
-  flex: 1 1 auto;
-  background: linear-gradient(
-    90deg,
-    var(--elw-glass-hairline),
-    rgb(9 51 74 / 0)
-  );
 }
 
 /* ============================================================
@@ -619,22 +557,20 @@ selector .elw-hero-card__clinical-line > span:last-child {
    ============================================================ */
 
 selector .elw-hero-figures {
-  z-index: 1;
   display: grid;
-  width: min(100%, 82rem);
-  margin: clamp(1rem, 1.8vw, 1.75rem) auto 0;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--elw-hairline);
 }
 
 selector .elw-hero-figures__item {
-  position: relative;
-  z-index: 1;
   min-width: 0;
-  padding: clamp(1.35rem, 2.4vw, 2rem) clamp(1.25rem, 2.4vw, 2rem);
+  padding: clamp(1.35rem, 2.4vw, 1.85rem) clamp(1.25rem, 2.4vw, 1.85rem)
+    clamp(1.35rem, 2.4vw, 1.85rem) 0;
 }
 
 selector .elw-hero-figures__item + .elw-hero-figures__item {
-  border-left: 1px solid var(--elw-glass-hairline);
+  padding-left: clamp(1.25rem, 2.4vw, 1.85rem);
+  border-left: 1px solid var(--elw-hairline);
 }
 
 selector .elw-hero-figures__value {
@@ -659,6 +595,82 @@ selector .elw-hero-figures__label {
 }
 
 /* ============================================================
+   FOOT + MEDICAL LINE
+   ============================================================ */
+
+selector .elw-hero-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  padding-top: clamp(1.25rem, 2vw, 1.6rem);
+  border-top: 1px solid var(--elw-hairline);
+}
+
+selector .elw-hero-foot__label {
+  color: var(--elw-neutral);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+selector .elw-medical-line {
+  width: min(100%, 320px);
+  flex: 0 1 320px;
+  margin: 0;
+  overflow: visible;
+}
+
+selector .elw-medical-line__svg {
+  display: block;
+  width: 100%;
+  height: clamp(36px, 4vw, 44px);
+  overflow: visible;
+  fill: none;
+  shape-rendering: geometricPrecision;
+}
+
+selector .elw-medical-line__base,
+selector .elw-medical-line__active,
+selector .elw-medical-line__reference {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+selector .elw-medical-line__base {
+  stroke: rgb(150 150 150 / 0.42);
+  stroke-width: 1;
+}
+
+selector .elw-medical-line__active {
+  stroke: var(--elw-primary);
+  stroke-width: 2.25;
+  stroke-dasharray: 16 84;
+  stroke-dashoffset: 100;
+  filter: drop-shadow(0 0 3px rgb(24 146 194 / 0.32));
+  animation: elw-medical-line-trace 2s linear infinite;
+}
+
+selector .elw-medical-line__reference {
+  stroke: var(--elw-accent);
+  stroke-width: 1.25;
+}
+
+@keyframes elw-medical-line-trace {
+  from {
+    stroke-dashoffset: 100;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ============================================================
    FOOTNOTE
    ============================================================ */
 
@@ -667,7 +679,7 @@ selector .elw-hero-footnote {
   z-index: 1;
   width: min(100%, 82rem);
   margin: clamp(1.25rem, 2vw, 1.75rem) auto 0;
-  color: var(--elw-muted);
+  color: rgb(0 0 0 / 0.58);
   font-size: 12px;
   font-weight: 400;
   line-height: 1.7;
@@ -677,8 +689,7 @@ selector .elw-hero-footnote {
    ENTRANCE
    ============================================================ */
 
-selector .elw-hero-card,
-selector .elw-hero-figures,
+selector .elw-hero-pane,
 selector .elw-hero-footnote {
   opacity: 0;
   transform: translateY(1.75rem);
@@ -687,27 +698,34 @@ selector .elw-hero-footnote {
     transform 0.75s var(--elw-ease) var(--elw-delay, 0ms);
 }
 
-selector .elw-hero-section.elw-is-visible .elw-hero-card,
-selector .elw-hero-section.elw-is-visible .elw-hero-figures,
+selector .elw-hero-section.elw-is-visible .elw-hero-pane,
 selector .elw-hero-section.elw-is-visible .elw-hero-footnote {
   opacity: 1;
   transform: translateY(0);
 }
 
-selector .elw-hero-card--record { --elw-delay: 90ms; }
-selector .elw-hero-figures { --elw-delay: 180ms; }
-selector .elw-hero-footnote { --elw-delay: 270ms; }
+selector .elw-hero-footnote { --elw-delay: 140ms; }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 
 @media (max-width: 64rem) {
-  selector .elw-hero-section__cards {
+  selector .elw-hero-body {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  selector .elw-hero-card__title {
+  selector .elw-hero-main {
+    padding-right: 0;
+  }
+
+  selector .elw-hero-side {
+    padding-left: 0;
+    border-top: 1px solid var(--elw-hairline);
+    border-left: 0;
+  }
+
+  selector .elw-hero-title {
     max-width: 20ch;
   }
 }
@@ -717,26 +735,22 @@ selector .elw-hero-footnote { --elw-delay: 270ms; }
     padding-inline: clamp(0.9rem, 4vw, 1.5rem);
   }
 
-  selector .elw-hero-card__eyebrow {
+  selector .elw-hero-eyebrow {
     flex-wrap: wrap;
     row-gap: 0.6rem;
   }
 
-  selector .elw-hero-card__eyebrow-divider {
+  selector .elw-hero-eyebrow__divider {
     flex: 1 1 2rem;
     width: auto;
   }
 
-  selector .elw-hero-card__title {
+  selector .elw-hero-title {
     max-width: none;
     font-size: clamp(2.15rem, 10.5vw, 3.4rem);
   }
 
-  selector .elw-hero-card__title--sm {
-    font-size: clamp(1.45rem, 6.5vw, 1.85rem);
-  }
-
-  selector .elw-hero-card__actions {
+  selector .elw-hero-actions {
     flex-direction: column;
     align-items: stretch;
   }
@@ -749,14 +763,29 @@ selector .elw-hero-footnote { --elw-delay: 270ms; }
     grid-template-columns: minmax(0, 1fr);
   }
 
+  selector .elw-hero-figures__item {
+    padding-right: 0;
+  }
+
   selector .elw-hero-figures__item + .elw-hero-figures__item {
-    border-top: 1px solid var(--elw-glass-hairline);
+    padding-left: 0;
+    border-top: 1px solid var(--elw-hairline);
     border-left: 0;
+  }
+
+  selector .elw-hero-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  selector .elw-medical-line {
+    flex: 0 0 auto;
   }
 }
 
 @media (max-width: 30rem) {
-  selector .elw-hero-card__eyebrow > span:last-child {
+  selector .elw-hero-eyebrow > span:last-child {
     flex: 0 0 100%;
     padding-left: 2.2rem;
   }
@@ -764,9 +793,8 @@ selector .elw-hero-footnote { --elw-delay: 270ms; }
 
 /* Solid fallback where backdrop-filter is unsupported. */
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  selector .elw-hero-card__surface,
-  selector .elw-hero-figures__surface {
-    background: rgb(255 255 255 / 0.9);
+  selector .elw-hero-pane__surface {
+    background: rgb(255 255 255 / 0.92);
   }
 
   selector .elw-hero-btn--secondary {
@@ -782,14 +810,20 @@ selector .elw-hero-footnote { --elw-delay: 270ms; }
     transition-duration: 0.01ms !important;
   }
 
-  selector .elw-hero-card,
-  selector .elw-hero-figures,
+  selector .elw-hero-pane,
   selector .elw-hero-footnote {
     opacity: 1;
     transform: none;
   }
 
-  selector .elw-hero-card__title > span::after {
+  selector .elw-hero-title > span::after,
+  selector .elw-hero-side__title > span::after {
     transform: scaleX(1);
+  }
+
+  selector .elw-medical-line__active {
+    animation: none !important;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
   }
 }
