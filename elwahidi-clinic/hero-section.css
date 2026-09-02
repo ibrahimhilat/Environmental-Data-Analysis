@@ -1,0 +1,573 @@
+selector {
+  --elw-primary: #1892C2;
+  --elw-accent: #F59327;
+  --elw-neutral: #969696;
+  --elw-black: #000000;
+  --elw-soft-blue: #68B7EE;
+  --elw-white: #FFFFFF;
+  --elw-border: rgb(150 150 150 / 0.34);
+  --elw-muted: rgb(0 0 0 / 0.64);
+  --elw-shadow: 0 1.5rem 3.5rem rgb(0 0 0 / 0.09);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  direction: ltr !important;
+  text-align: left !important;
+  isolation: isolate;
+  background: var(--elw-white);
+  color: var(--elw-black);
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+selector *,
+selector *::before,
+selector *::after {
+  box-sizing: border-box;
+}
+
+/* ----------------------------------------------------------------
+   SECTION SHELL
+---------------------------------------------------------------- */
+
+selector .elw-hero {
+  width: 100%;
+  padding-block: clamp(4rem, 7vw, 7rem);
+  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+  background: var(--elw-white);
+}
+
+selector .elw-hero__inner {
+  width: min(100%, 78rem);
+  margin-inline: auto;
+}
+
+/* ----------------------------------------------------------------
+   A. EYEBROW / BRAND LINE
+---------------------------------------------------------------- */
+
+selector .elwahidi-brand-line {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  margin: 0 0 clamp(2.5rem, 5vw, 4.25rem);
+  color: var(--elw-black);
+  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0s both;
+}
+
+selector .elwahidi-brand-mark {
+  position: relative;
+  display: inline-grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  place-items: center;
+  margin-right: 0.8rem;
+  border: 1px solid rgb(24 146 194 / 0.7);
+  border-radius: 50%;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+selector .elwahidi-brand-mark > span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--elw-accent);
+}
+
+selector .elwahidi-brand-line:hover .elwahidi-brand-mark {
+  border-color: var(--elw-black);
+  transform: rotate(45deg);
+}
+
+selector .elwahidi-brand-text,
+selector .elwahidi-brand-location {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+selector .elwahidi-brand-location {
+  color: var(--elw-neutral);
+}
+
+selector .elwahidi-brand-divider {
+  width: min(9vw, 5.5rem);
+  height: 1px;
+  margin-inline: clamp(0.85rem, 1.6vw, 1.35rem);
+  background: linear-gradient(
+    90deg,
+    var(--elw-primary),
+    rgb(24 146 194 / 0)
+  );
+}
+
+/* ----------------------------------------------------------------
+   LAYOUT
+---------------------------------------------------------------- */
+
+selector .elw-hero__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(20rem, 0.88fr);
+  align-items: start;
+  gap: clamp(3rem, 6vw, 6.5rem);
+}
+
+selector .elw-hero__copy {
+  min-width: 0;
+}
+
+/* ----------------------------------------------------------------
+   B. TITLE WITH DRAW-LINE
+---------------------------------------------------------------- */
+
+selector .elw-title {
+  max-width: 15ch;
+  margin: 0;
+  color: var(--elw-black);
+  font-size: clamp(2.5rem, 5.4vw, 4.75rem);
+  font-weight: 850;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+  animation: elw-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+selector .elw-title > span {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  color: var(--elw-black);
+}
+
+selector .elw-title > span::after {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0.05em;
+  left: 0;
+  height: clamp(0.25rem, 0.5vw, 0.45rem);
+  background: var(--elw-soft-blue);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: elw-title-line 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+/* ----------------------------------------------------------------
+   COPY
+---------------------------------------------------------------- */
+
+selector .elw-hero__specialty {
+  max-width: 46ch;
+  margin: clamp(1.65rem, 2.8vw, 2.35rem) 0 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--elw-primary);
+  color: var(--elw-black);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+selector .elw-hero__lede {
+  max-width: 62ch;
+  margin: clamp(1.35rem, 2.2vw, 1.85rem) 0 0;
+  color: var(--elw-muted);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+}
+
+selector .elw-hero__detail {
+  max-width: 62ch;
+  margin: clamp(1.25rem, 2vw, 1.6rem) 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--elw-border);
+  color: var(--elw-neutral);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+
+/* ----------------------------------------------------------------
+   C. BUTTONS
+---------------------------------------------------------------- */
+
+selector .elw-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: clamp(2rem, 3.2vw, 2.85rem);
+  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
+}
+
+selector .elw-btn {
+  display: inline-flex;
+  min-height: 3.4rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1rem clamp(1.25rem, 2vw, 1.75rem);
+  border: 1px solid transparent;
+  border-radius: 0;
+  color: var(--elw-black);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition:
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+selector .elw-btn--primary {
+  background: var(--elw-soft-blue);
+  color: var(--elw-black);
+}
+
+selector .elw-btn--primary:hover {
+  background: var(--elw-black);
+  color: var(--elw-white);
+}
+
+selector .elw-btn--primary:hover .elw-btn__icon {
+  color: var(--elw-accent);
+}
+
+selector .elw-btn--secondary {
+  border-color: var(--elw-black);
+  background: var(--elw-white);
+  color: var(--elw-black);
+}
+
+selector .elw-btn--secondary:hover {
+  border-color: var(--elw-primary);
+  background: rgb(24 146 194 / 0.03);
+}
+
+selector .elw-btn__icon {
+  display: inline-grid;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  place-items: center;
+  color: inherit;
+  transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+selector .elw-btn__icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+selector .elw-btn:focus-visible,
+selector .elw-cred__link:focus-visible {
+  outline: 2px solid var(--elw-primary);
+  outline-offset: 3px;
+}
+
+/* ----------------------------------------------------------------
+   E. CREDENTIAL BLOCK
+---------------------------------------------------------------- */
+
+selector .elw-cred {
+  min-width: 0;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--elw-black);
+  background: transparent;
+  animation: elw-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+}
+
+selector .elw-cred__eyebrow {
+  margin: 0;
+  color: var(--elw-primary);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+selector .elw-cred__name {
+  margin: clamp(1.35rem, 2.2vw, 1.85rem) 0 0;
+  color: var(--elw-black);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+selector .elw-cred__postnom {
+  margin: 0.7rem 0 0;
+  color: var(--elw-neutral);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+selector .elw-cred__list {
+  margin: clamp(1.5rem, 2.5vw, 2rem) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--elw-border);
+}
+
+selector .elw-cred__item {
+  position: relative;
+  padding: clamp(1rem, 1.7vw, 1.3rem) 0 clamp(1rem, 1.7vw, 1.3rem) 1rem;
+  border-bottom: 1px solid var(--elw-border);
+  transition: background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+selector .elw-cred__item:hover {
+  background: rgb(24 146 194 / 0.03);
+}
+
+selector .elw-cred__item--key::before {
+  position: absolute;
+  top: calc(clamp(1rem, 1.7vw, 1.3rem) + 0.35rem);
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--elw-accent);
+  content: "";
+}
+
+selector .elw-cred__issuer {
+  margin: 0;
+  color: var(--elw-neutral);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+selector .elw-cred__value {
+  margin: 0.55rem 0 0;
+  color: var(--elw-black);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+selector .elw-cred__note {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--elw-muted);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.65;
+  font-variant-numeric: tabular-nums;
+}
+
+selector .elw-cred__link {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: clamp(1.35rem, 2.2vw, 1.85rem);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--elw-black);
+  color: var(--elw-black);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+selector .elw-cred__link:hover {
+  border-color: var(--elw-primary);
+  color: var(--elw-primary);
+}
+
+/* ----------------------------------------------------------------
+   DATA STRIP
+---------------------------------------------------------------- */
+
+selector .elw-data {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: clamp(3.5rem, 6vw, 5.5rem) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--elw-black);
+  border-bottom: 1px solid var(--elw-border);
+  list-style: none;
+  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+
+selector .elw-data__item {
+  min-width: 0;
+  padding: clamp(1.35rem, 2.4vw, 1.9rem) clamp(1rem, 2vw, 1.6rem)
+    clamp(1.35rem, 2.4vw, 1.9rem) 0;
+}
+
+selector .elw-data__item + .elw-data__item {
+  padding-left: clamp(1rem, 2vw, 1.6rem);
+  border-left: 1px solid var(--elw-border);
+}
+
+selector .elw-data__figure {
+  display: block;
+  color: var(--elw-black);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+selector .elw-data__label {
+  display: block;
+  margin-top: 0.85rem;
+  color: var(--elw-neutral);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------------
+   F. FOOTNOTE
+---------------------------------------------------------------- */
+
+selector .elw-hero__footnote {
+  max-width: 62ch;
+  margin: clamp(1.35rem, 2.2vw, 1.85rem) 0 0;
+  color: var(--elw-neutral);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.7;
+  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.48s both;
+}
+
+/* ----------------------------------------------------------------
+   MOTION
+---------------------------------------------------------------- */
+
+@keyframes elw-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes elw-title-line {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE
+---------------------------------------------------------------- */
+
+@media (max-width: 64rem) {
+  selector .elw-hero__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  selector .elw-title {
+    max-width: 18ch;
+  }
+
+  selector .elw-cred {
+    width: min(100%, 44rem);
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  selector .elw-hero {
+    padding-inline: clamp(1rem, 5vw, 1.5rem);
+  }
+
+  selector .elwahidi-brand-line {
+    flex-wrap: wrap;
+    row-gap: 0.7rem;
+  }
+
+  selector .elwahidi-brand-divider {
+    flex: 1 1 2.5rem;
+    width: auto;
+  }
+
+  selector .elw-title {
+    max-width: none;
+    font-size: clamp(2.25rem, 11vw, 3.5rem);
+  }
+
+  selector .elw-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  selector .elw-btn {
+    width: 100%;
+  }
+
+  selector .elw-data {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  selector .elw-data__item {
+    padding-right: 0;
+  }
+
+  selector .elw-data__item + .elw-data__item {
+    padding-left: 0;
+    border-top: 1px solid var(--elw-border);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 30rem) {
+  selector .elwahidi-brand-location {
+    flex: 0 0 100%;
+    padding-left: 2.4rem;
+  }
+
+  selector .elwahidi-brand-divider {
+    margin-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  selector *,
+  selector *::before,
+  selector *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
