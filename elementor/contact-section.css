@@ -1,0 +1,581 @@
+/* ================================================================
+   Dr. Ahmad Al-Wahidi Clinic — Anatomy Woven Contact Section
+   PART 2 of 2 : paste this block into Elementor
+                 Advanced tab > Custom CSS  (of the same widget).
+   Every rule is scoped to .elw-contact-shell, so nothing on the
+   rest of the page is affected.
+   ================================================================ */
+
+.elw-contact-shell {
+  --elw-primary: #1892c2;
+  --elw-soft: #68b7ee;
+  --elw-accent: #f59327;
+  --elw-ink: #10233a;
+  --elw-muted: #6b7a8a;
+  --elw-line: rgb(16 35 58 / 0.14);
+
+  width: 100%;
+  padding: clamp(10px, 2.4vw, 46px);
+  color: var(--elw-ink);
+  direction: ltr;
+  text-align: left;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.elw-contact-shell *,
+.elw-contact-shell *::before,
+.elw-contact-shell *::after {
+  box-sizing: border-box;
+}
+
+/* ---------------- SECTION SHELL ---------------- */
+
+.elw-contact {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 1280px);
+  min-height: clamp(560px, 55vw, 720px);
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: clamp(24px, 3vw, 44px);
+  direction: ltr;
+  text-align: left;
+  background: linear-gradient(140deg, #e8f2fb 0%, #dbeaf8 46%, #cfe2f4 100%);
+}
+
+.elw-contact__ambient {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 78% 22%, rgb(255 255 255 / 0.75), transparent 46%),
+    radial-gradient(circle at 14% 78%, rgb(104 183 238 / 0.3), transparent 44%),
+    radial-gradient(circle at 92% 84%, rgb(245 147 39 / 0.12), transparent 34%);
+}
+
+/* ---------------- ANATOMY LAYERS ---------------- */
+
+.elw-anatomy {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* the stomach sits behind the frosted cards and reads through the glass */
+.elw-anatomy--back {
+  z-index: 1;
+}
+
+/* the colon is drawn as a hollow outline on top, so it weaves over the cards
+   without hiding a single line of copy */
+.elw-anatomy--front {
+  z-index: 20;
+}
+
+/* --- stomach illustration (clinic PNG, portrait ~2:3) --- */
+
+.elw-organ--stomach {
+  position: absolute;
+  top: 0;
+  right: 1.5%;
+  width: auto;
+  height: 100%;
+  max-width: 56%;
+  object-fit: contain;
+  object-position: top right;
+  filter: drop-shadow(0 20px 30px rgb(15 42 68 / 0.14));
+}
+
+/* --- large intestine (hollow white outline) --- */
+
+.elw-colon,
+.elw-markers {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.elw-colon__wall {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 46px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.elw-colon__guides {
+  fill: none;
+  stroke: var(--elw-primary);
+  stroke-opacity: 0.16;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4px;
+}
+
+/* --- micro markers --- */
+
+.elw-markers__sweep {
+  fill: none;
+  stroke: var(--elw-accent);
+  stroke-opacity: 0.5;
+  stroke-linecap: round;
+  stroke-width: 2.5px;
+}
+
+.elw-markers__dot--amber {
+  fill: var(--elw-accent);
+}
+
+.elw-markers__dot--white {
+  fill: #fff;
+  opacity: 0.85;
+}
+
+/* ---------------- CARD GRID ---------------- */
+
+.elw-contact__grid {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(10px, 1.4vw, 22px);
+  padding: clamp(20px, 2.6vw, 40px);
+}
+
+.elw-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(430px, 38vw, 500px);
+  padding: clamp(22px, 2vw, 30px);
+  color: var(--elw-ink);
+  direction: ltr;
+  text-align: left;
+}
+
+.elw-card--phone {
+  margin-top: clamp(40px, 9vw, 128px);
+}
+
+.elw-card--location {
+  margin-top: clamp(10px, 2vw, 30px);
+}
+
+.elw-card--hours {
+  margin-top: clamp(28px, 6.5vw, 92px);
+}
+
+/* --- glass surface --- */
+
+.elw-card__surface {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgb(255 255 255 / 0.8);
+  border-radius: clamp(22px, 2.4vw, 34px);
+  background: linear-gradient(150deg, rgb(255 255 255 / 0.58), rgb(240 248 254 / 0.34) 58%, rgb(226 240 251 / 0.46));
+  box-shadow:
+    0 24px 48px rgb(15 42 68 / 0.1),
+    inset 0 1px 0 rgb(255 255 255 / 0.9);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(130%);
+  transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
+}
+
+.elw-card:hover .elw-card__surface {
+  border-color: rgb(24 146 194 / 0.5);
+  background: linear-gradient(150deg, rgb(255 255 255 / 0.9), rgb(240 249 254 / 0.7));
+  box-shadow:
+    0 28px 56px rgb(15 42 68 / 0.15),
+    inset 0 1px 0 rgb(255 255 255 / 0.95);
+}
+
+/* accent tab, top-right of every card */
+.elw-card::after {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  width: 42px;
+  height: 3px;
+  content: "";
+  border-radius: 99px;
+  background: var(--elw-primary);
+  opacity: 0.8;
+}
+
+.elw-card--location::after { background: var(--elw-soft); }
+.elw-card--hours::after    { background: var(--elw-accent); }
+
+/* ---------------- CARD HEAD ---------------- */
+
+.elw-card__eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: clamp(18px, 2vw, 28px);
+  color: var(--elw-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.elw-card__eyebrow-mark {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 2px;
+  background: var(--elw-primary);
+}
+
+.elw-card--location .elw-card__eyebrow-mark { background: var(--elw-soft); }
+.elw-card--hours .elw-card__eyebrow-mark    { background: var(--elw-accent); }
+
+.elw-card__eyebrow-dot {
+  flex: 0 0 auto;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--elw-accent);
+}
+
+.elw-card__identity {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 14px;
+}
+
+.elw-card__number {
+  color: var(--elw-muted);
+  font: 700 11px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.elw-card__icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgb(24 146 194 / 0.34);
+  border-radius: 50%;
+  color: var(--elw-primary);
+  background: rgb(255 255 255 / 0.72);
+}
+
+.elw-card__icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.elw-card--location .elw-card__icon {
+  border-color: rgb(104 183 238 / 0.5);
+  color: var(--elw-soft);
+}
+
+.elw-card--hours .elw-card__icon {
+  border-color: rgb(245 147 39 / 0.5);
+  color: var(--elw-accent);
+}
+
+/* translucent plate behind title + description */
+.elw-card__plate {
+  position: relative;
+  max-width: 100%;
+  padding: 14px 16px 16px;
+  margin: 0 -6px;
+  border: 1px solid rgb(255 255 255 / 0.6);
+  border-radius: 22px;
+  background: rgb(255 255 255 / 0.42);
+  box-shadow: 0 10px 24px rgb(15 42 68 / 0.05);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.elw-card__title {
+  margin: 0;
+  color: var(--elw-ink);
+  font-size: clamp(24px, 2.1vw, 31px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+  text-align: left;
+}
+
+.elw-card__title span { color: var(--elw-primary); }
+.elw-card--location .elw-card__title span { color: var(--elw-soft); }
+.elw-card--hours .elw-card__title span    { color: var(--elw-accent); }
+
+.elw-card__desc {
+  max-width: 30ch;
+  margin: 13px 0 0;
+  color: var(--elw-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ---------------- CARD BODY ---------------- */
+
+.elw-card__body {
+  margin-top: clamp(16px, 2vw, 24px);
+  padding-top: 16px;
+  border-top: 1px solid var(--elw-line);
+}
+
+.elw-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--elw-line);
+  color: var(--elw-ink);
+  text-decoration: none;
+}
+
+.elw-row__label {
+  grid-column: 1;
+  color: var(--elw-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.elw-row__value {
+  grid-column: 1;
+  color: var(--elw-ink);
+  font: 700 15px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  transition: color 180ms ease;
+}
+
+.elw-row--map .elw-row__value {
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.elw-row__arrow {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  color: var(--elw-primary);
+  font-size: 19px;
+}
+
+.elw-row--whatsapp .elw-row__arrow { color: var(--elw-accent); }
+.elw-row--map .elw-row__arrow      { color: var(--elw-soft); }
+
+.elw-row:hover .elw-row__value { color: var(--elw-primary); }
+
+/* info rows (location card) */
+
+.elw-info {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--elw-line);
+}
+
+.elw-info__line {
+  width: 14px;
+  height: 1px;
+  background: var(--elw-primary);
+}
+
+.elw-info__icon {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid rgb(24 146 194 / 0.22);
+  border-radius: 50%;
+  color: var(--elw-primary);
+  background: rgb(255 255 255 / 0.72);
+}
+
+.elw-info__icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.elw-info__text {
+  color: var(--elw-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* hours rows */
+
+.elw-hours {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--elw-line);
+}
+
+.elw-hours__day {
+  color: var(--elw-ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.elw-hours__time {
+  color: var(--elw-primary);
+  direction: ltr;
+  font: 700 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  text-align: right;
+}
+
+.elw-hours--closed .elw-hours__time { color: var(--elw-accent); }
+
+.elw-hours__time em {
+  font-style: normal;
+  opacity: 0.82;
+}
+
+.elw-postop {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  padding-top: 15px;
+}
+
+.elw-postop__mark {
+  display: grid;
+  width: 29px;
+  height: 29px;
+  place-items: center;
+  border: 1px solid rgb(245 147 39 / 0.45);
+  border-radius: 50%;
+  color: var(--elw-accent);
+}
+
+.elw-postop__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.elw-postop__copy strong {
+  font-size: 10px;
+  letter-spacing: 0.07em;
+}
+
+.elw-postop__copy small {
+  color: var(--elw-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* ---------------- CARD FOOT ---------------- */
+
+.elw-card__foot {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 22px;
+  color: var(--elw-muted);
+  font: 800 9px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.09em;
+}
+
+.elw-card__foot > span:first-child {
+  text-shadow: 0 0 10px rgb(255 255 255 / 0.9);
+}
+
+.elw-card__foot > span:last-child {
+  height: 1px;
+  background: var(--elw-line);
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media (max-width: 1050px) {
+  .elw-contact {
+    min-height: 0;
+  }
+
+  .elw-contact__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .elw-card,
+  .elw-card--phone,
+  .elw-card--location,
+  .elw-card--hours {
+    min-height: 470px;
+    margin: 0;
+  }
+
+  .elw-card--hours {
+    grid-column: 1 / -1;
+    width: min(100%, 540px);
+    justify-self: center;
+  }
+
+  /* the woven outline only reads on the wide 3-column layout */
+  .elw-anatomy--front {
+    display: none;
+  }
+
+  .elw-organ--stomach {
+    top: auto;
+    bottom: -3%;
+    right: -5%;
+    height: 60%;
+    max-width: 52%;
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 680px) {
+  .elw-contact-shell {
+    padding: 10px;
+  }
+
+  .elw-contact {
+    border-radius: 26px;
+  }
+
+  .elw-contact__grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .elw-card {
+    min-height: 0;
+    padding: 24px;
+  }
+
+  .elw-card--hours {
+    grid-column: auto;
+    width: auto;
+  }
+
+  .elw-card__eyebrow {
+    font-size: 9px;
+  }
+
+  .elw-organ--stomach {
+    height: 44%;
+    max-width: 62%;
+    opacity: 0.42;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .elw-card__surface,
+  .elw-row__value {
+    transition: none;
+  }
+}
