@@ -153,3 +153,37 @@ Also aligned to the hero's system: brand family (`#2E9CC5` hue), Figtree/Noto
 Sans instead of the unloaded `Inter`, 8px radius instead of 22px, weight 700
 instead of 800, and the same brand tick rule as the hero eyebrow.
 `pointer-events: none` was dropped — it blocked text selection for no benefit.
+
+
+---
+
+## `elementor/contact-hero.html` + `.css` — status instead of duplicate CTAs
+
+The hero's WhatsApp and phone buttons duplicated card 01 of
+`contact-section.html` a few hundred pixels below, which already lists
+**Main Line +962 79 555 6563** and **WhatsApp 079 555 6563** as tappable rows.
+
+**A number mismatch was found while removing them.** The hero's buttons pointed
+at `962791080910` in both `href`s while *displaying* `+962795556563` — so the
+call button dialled a different number than the one it showed, and its WhatsApp
+link went somewhere other than the card below. Removing the buttons removes the
+mismatch; the card's `962795556563` is now the single source.
+
+In their place the hero carries the one thing the cards cannot show at a glance:
+**whether the clinic is open right now**, computed in `Asia/Amman` from the same
+hours card 03 publishes, plus a quiet anchor down to `#elw-contact-details`.
+Colour is never the only cue — the wording itself says open or closed.
+
+**If the opening hours change, update BOTH `contact-section.html` (card 03) and
+the `HOURS` table in `contact-hero.html`.**
+
+Verified: twelve boundary times across a full week (including Thursday 15:00
+correctly rolling to Saturday over the Friday closure), no JS errors, no
+horizontal overflow at 1100/390 px. Contrast 0 failures; the status pill
+measures 4.84:1 open and 5.35:1 closed on its own tinted plate.
+
+Also fixed while in the file: the title highlight used an absolutely positioned
+`::after`, which stretched into one edge-to-edge bar once the line wrapped on
+mobile. It is now a per-line background with `box-decoration-break: clone`.
+Palette and type were brought onto the `#2E9CC5` family and Figtree/Noto Sans,
+and `--elwc-neutral: #969696` (2.85:1) was retired.

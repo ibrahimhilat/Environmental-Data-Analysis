@@ -1,0 +1,380 @@
+/*
+  Dr. Ahmad Al-Wahidi Clinic — Contact Hero
+  PART 2 of 2 : paste into the SAME HTML widget, Advanced ▸ Custom CSS.
+*/
+
+selector {
+  /* One hue (196.3deg, the brand's own) at accessible lightness steps.
+     #2E9CC5 is 3.14:1 on white, so it carries fills and marks, never text. */
+  --elwc-brand: #2E9CC5;
+  --elwc-deep: #1F6984;             /* 6.15:1 — small marks, links */
+  --elwc-cta: #19556B;              /* 8.23:1 with white */
+  --elwc-accent: #F59327;
+  --elwc-open: #1C7A52;             /* 4.9:1 on white — "open now" */
+  --elwc-closed: #8A5A16;           /* 4.8:1 on white — "closed" */
+
+  --elwc-ink: #0A2C3F;              /* 14.5:1 */
+  --elwc-body: #3C5666;             /* 7.7:1 */
+  --elwc-meta: #55707F;             /* 5.2:1 (was #969696 at 2.85:1) */
+  --elwc-white: #FFFFFF;
+
+  --elwc-hairline: rgb(10 44 63 / 0.14);
+  --elwc-blue-wash: radial-gradient(circle at 50% 0%, rgb(46 156 197 / 0.15) 0%, transparent 60%);
+  --elwc-shell-width: 960px;
+  --elwc-page-gutter: clamp(1rem, 4vw, 4rem);
+  --elwc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: var(--elwc-ink);
+  background: var(--elwc-white);
+  direction: ltr;
+  text-align: center;
+  isolation: isolate;
+  font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+selector,
+selector *,
+selector *::before,
+selector *::after {
+  box-sizing: border-box;
+}
+
+selector a {
+  color: inherit;
+  text-decoration: none;
+}
+
+selector a:focus-visible {
+  outline: 3px solid var(--elwc-cta);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+selector .elw-shell {
+  width: 100%;
+  max-width: var(--elwc-shell-width);
+  margin-inline: auto;
+  padding-inline: var(--elwc-page-gutter);
+}
+
+/* =========================================================
+   HERO — CENTERED EDITORIAL
+   ========================================================= */
+
+selector .elw-con-hero {
+  position: relative;
+  width: 100%;
+  padding-block: clamp(5rem, 10vw, 8.5rem);
+  overflow: hidden;
+  background: var(--elwc-white);
+}
+
+selector .elw-con-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--elwc-blue-wash);
+  pointer-events: none;
+}
+
+selector .elw-con-hero__shell {
+  position: relative;
+  z-index: 1;
+}
+
+selector .elw-con-hero__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ---------- Brand line ---------- */
+
+selector .elwahidi-brand-line {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 clamp(1.5rem, 3vw, 2rem);
+  color: var(--elwc-cta);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: elwc-fade-up 0.8s var(--elwc-ease) 0.1s forwards;
+}
+
+selector .elwahidi-brand-mark {
+  position: relative;
+  display: inline-grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  place-items: center;
+  border: 1.5px solid rgb(31 105 132 / 0.55);
+  border-radius: 50%;
+  background: rgb(46 156 197 / 0.08);
+}
+
+selector .elwahidi-brand-mark span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--elwc-brand);
+}
+
+selector .elwahidi-brand-text {
+  color: var(--elwc-cta);
+  white-space: nowrap;
+}
+
+selector .elwahidi-brand-divider {
+  width: 26px;
+  height: 1px;
+  flex: 0 0 26px;
+  background: linear-gradient(90deg, rgb(31 105 132 / 0.7), rgb(31 105 132 / 0.1));
+}
+
+selector .elwahidi-brand-location {
+  color: var(--elwc-meta);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
+/* ---------- Title ---------- */
+
+selector .elw-con-hero__title {
+  margin: 0;
+  color: var(--elwc-ink);
+  font-family: Figtree, "Noto Sans", system-ui, sans-serif;
+  /* 700 at a calmer size — a clinic, not a product launch */
+  font-size: clamp(2.6rem, 5.4vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  opacity: 0;
+  animation: elwc-fade-up 0.8s var(--elwc-ease) 0.25s forwards;
+}
+
+/* The highlight is painted as a background on an INLINE span with
+   box-decoration-break: clone, so a wrapped line gets an underline per
+   line. An absolutely-positioned ::after cannot do that — on mobile it
+   stretched into one bar across the whole two-line block. */
+selector .elw-con-hero__title span {
+  display: inline;
+  padding-block: 0.06em 0.14em;
+  color: var(--elwc-ink);
+  font-size: 0.62em;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  background-image: linear-gradient(#83C8E2, #83C8E2);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 0.2em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  animation: elwc-line-draw 0.7s var(--elwc-ease) 0.75s forwards;
+}
+
+selector .elw-con-hero__intro {
+  max-width: 42rem;
+  margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+  color: var(--elwc-body);
+  font-size: clamp(1rem, 1.35vw, 1.125rem);
+  line-height: 1.75;
+  text-wrap: balance;
+  opacity: 0;
+  animation: elwc-fade-up 0.8s var(--elwc-ease) 0.4s forwards;
+}
+
+/* =========================================================
+   STATUS — replaces the buttons that duplicated card 01
+   ========================================================= */
+
+selector .elw-con-hero__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem clamp(1rem, 2.5vw, 1.75rem);
+  margin-top: clamp(2.25rem, 4.5vw, 3rem);
+  opacity: 0;
+  animation: elwc-fade-up 0.8s var(--elwc-ease) 0.55s forwards;
+}
+
+selector .elw-con-hero__status-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  margin: 0;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--elwc-hairline);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.72);
+  color: var(--elwc-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+selector .elw-con-hero__status-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--elwc-meta);
+}
+
+/* Colour is never the only cue: the wording itself says open or closed. */
+selector [data-elw-state="open"] .elw-con-hero__status-line {
+  border-color: rgb(28 122 82 / 0.34);
+  background: rgb(28 122 82 / 0.07);
+  color: var(--elwc-open);
+}
+
+selector [data-elw-state="open"] .elw-con-hero__status-dot {
+  background: var(--elwc-open);
+  animation: elwc-pulse 2.4s var(--elwc-ease) infinite;
+}
+
+selector [data-elw-state="closed"] .elw-con-hero__status-line {
+  border-color: rgb(138 90 22 / 0.32);
+  background: rgb(138 90 22 / 0.07);
+  color: var(--elwc-closed);
+}
+
+selector [data-elw-state="closed"] .elw-con-hero__status-dot {
+  background: var(--elwc-closed);
+}
+
+/* Quiet route to the detail cards — a signpost, not a second CTA. */
+selector .elw-con-hero__jump {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.35rem;
+  color: var(--elwc-deep);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-underline-offset: 0.35em;
+  transition: color 0.3s var(--elwc-ease);
+}
+
+selector .elw-con-hero__jump:hover {
+  color: var(--elwc-cta);
+  text-decoration: underline;
+}
+
+selector .elw-con-hero__jump-icon {
+  display: inline-grid;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  place-items: center;
+  transition: transform 0.3s var(--elwc-ease);
+}
+
+selector .elw-con-hero__jump-icon svg { width: 18px; height: 18px; }
+selector .elw-con-hero__jump:hover .elw-con-hero__jump-icon { transform: translateY(2px); }
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes elwc-fade-up {
+  from { opacity: 0; transform: translate3d(0, 1.5rem, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes elwc-line-draw {
+  from { background-size: 0 0.2em; }
+  to   { background-size: 100% 0.2em; }
+}
+
+@keyframes elwc-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(28 122 82 / 0.35); }
+  70%      { box-shadow: 0 0 0 8px rgb(28 122 82 / 0); }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 47.9375rem) {
+  selector { --elwc-page-gutter: 1rem; }
+
+  selector .elw-con-hero { padding-block: 4rem 5rem; }
+
+  selector .elw-con-hero__title {
+    font-size: clamp(2.4rem, 12vw, 3.4rem);
+    letter-spacing: -0.04em;
+  }
+
+  selector .elw-con-hero__title span {
+    font-size: 0.58em;
+    line-height: 1.35;
+  }
+
+  selector .elw-con-hero__status {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  selector .elwahidi-brand-line {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+  }
+
+  selector .elwahidi-brand-text { white-space: normal; }
+  selector .elwahidi-brand-divider { width: 16px; flex-basis: 16px; }
+  selector .elw-con-hero__status-line { font-size: 0.8125rem; }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-contrast: more) {
+  selector {
+    --elwc-body: #1B394B;
+    --elwc-meta: #2A4A5C;
+    --elwc-hairline: rgb(10 44 63 / 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  selector *,
+  selector *::before,
+  selector *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  selector .elwahidi-brand-line,
+  selector .elw-con-hero__title,
+  selector .elw-con-hero__intro,
+  selector .elw-con-hero__status {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  selector .elw-con-hero__title span { background-size: 100% 0.2em !important; }
+}

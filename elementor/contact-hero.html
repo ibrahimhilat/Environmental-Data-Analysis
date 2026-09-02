@@ -1,0 +1,165 @@
+<!-- ============================================================
+     Dr. Ahmad Al-Wahidi Clinic — Contact Hero
+     PART 1 of 2 : paste into an Elementor "HTML" widget.
+     PART 2 (contact-hero.css) goes in Advanced ▸ Custom CSS.
+
+     The WhatsApp and phone buttons that used to sit here were a
+     literal duplicate of card 01 in contact-section.html, a few
+     hundred pixels below. They are replaced by the one thing the
+     cards cannot tell a patient at a glance: whether the clinic
+     is open right now.
+
+     The status is computed from the same hours card 03 publishes.
+     If those hours change, update BOTH files.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap">
+
+<section
+  class="elw-con-hero"
+  aria-labelledby="elw-con-hero-title"
+  itemprop="mainContentOfPage"
+>
+  <div class="elw-shell elw-con-hero__shell">
+    <header class="elw-con-hero__header">
+      <p class="elwahidi-brand-line">
+        <span class="elwahidi-brand-mark" aria-hidden="true"><span></span></span>
+        <span class="elwahidi-brand-text">Patient Care &amp; Support</span>
+        <span class="elwahidi-brand-divider" aria-hidden="true"></span>
+        <span class="elwahidi-brand-location">Khalda, Amman</span>
+      </p>
+
+      <h1
+        id="elw-con-hero-title"
+        class="elw-con-hero__title"
+        itemprop="headline"
+      >
+        Get in touch &amp;<br>
+        <span>schedule your consultation</span>
+      </h1>
+
+      <p class="elw-con-hero__intro" itemprop="description">
+        We welcome your clinical inquiries and surgical consultation appointments
+        with absolute privacy, transparent communication, and German healthcare
+        excellence.
+      </p>
+
+      <!-- Live status. The markup below is the no-JS fallback: it states the
+           published hours plainly, and the script upgrades it in place. -->
+      <div class="elw-con-hero__status" data-elw-hours>
+        <p class="elw-con-hero__status-line">
+          <span class="elw-con-hero__status-dot" aria-hidden="true"></span>
+          <span class="elw-con-hero__status-text" data-elw-status-text>
+            Saturday&ndash;Wednesday 9:30&nbsp;AM&ndash;5:00&nbsp;PM
+            &middot; Thursday until 3:00&nbsp;PM &middot; Friday closed
+          </span>
+        </p>
+
+        <a class="elw-con-hero__jump" href="#elw-contact-details">
+          <span>Phone, WhatsApp, location &amp; hours</span>
+          <span class="elw-con-hero__jump-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M6 13l6 6 6-6"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </header>
+  </div>
+</section>
+
+<script>
+(() => {
+  /* Opening hours, mirroring card 03 of contact-section.html.
+     Index is JS getDay(): 0 = Sunday … 6 = Saturday. */
+  const HOURS = {
+    0: [570, 1020],  // Sunday    09:30–17:00
+    1: [570, 1020],  // Monday
+    2: [570, 1020],  // Tuesday
+    3: [570, 1020],  // Wednesday
+    4: [570,  900],  // Thursday  09:30–15:00
+    5: null,         // Friday    closed
+    6: [570, 1020],  // Saturday
+  };
+  const DAY = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const CLINIC_TZ = "Asia/Amman";
+
+  /* Read the wall clock in Amman regardless of where the visitor is. */
+  const clinicNow = () => {
+    try {
+      const parts = new Intl.DateTimeFormat("en-GB", {
+        timeZone: CLINIC_TZ, weekday: "short", hour: "2-digit",
+        minute: "2-digit", hour12: false,
+      }).formatToParts(new Date());
+      const get = (t) => parts.find((p) => p.type === t)?.value;
+      const day = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(get("weekday"));
+      if (day < 0) return null;
+      return { day, minutes: Number(get("hour")) * 60 + Number(get("minute")) };
+    } catch (err) {
+      return null;   /* No Intl time zone support — keep the static fallback. */
+    }
+  };
+
+  const fmt = (mins) => {
+    const h = Math.floor(mins / 60), m = mins % 60;
+    const h12 = h % 12 === 0 ? 12 : h % 12;
+    return `${h12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+  };
+
+  const nextOpening = (fromDay) => {
+    for (let i = 1; i <= 7; i += 1) {
+      const d = (fromDay + i) % 7;
+      if (HOURS[d]) return { day: DAY[d], at: fmt(HOURS[d][0]) };
+    }
+    return null;
+  };
+
+  const render = (root) => {
+    const now = clinicNow();
+    const slot = document.querySelector("[data-elw-status-text]");
+    if (!now || !slot) return;
+
+    const today = HOURS[now.day];
+    const open = today && now.minutes >= today[0] && now.minutes < today[1];
+
+    if (open) {
+      root.dataset.elwState = "open";
+      slot.textContent = `Open now · until ${fmt(today[1])}`;
+      return;
+    }
+
+    root.dataset.elwState = "closed";
+    if (today && now.minutes < today[0]) {
+      slot.textContent = `Closed · opens today at ${fmt(today[0])}`;
+      return;
+    }
+    const next = nextOpening(now.day);
+    slot.textContent = next
+      ? `Closed · opens ${next.day} at ${next.at}`
+      : "Closed";
+  };
+
+  const start = () => {
+    document.querySelectorAll("[data-elw-hours]").forEach((root) => {
+      if (root.dataset.elwReady) return;
+      root.dataset.elwReady = "1";
+      render(root);
+      /* Re-check each minute so the badge cannot go stale on an open tab. */
+      window.setInterval(() => render(root), 60000);
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, { once: true });
+  } else {
+    start();
+  }
+
+  if (window.jQuery) {
+    window.jQuery(window).on("elementor/frontend/init", start);
+  }
+})();
+</script>
