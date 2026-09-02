@@ -12,19 +12,19 @@
   --elw-accent: #f59327;
 
   /* text-safe versions of the same hues (>= 4.5:1 on white) */
-  --elw-primary-ink: #0d7096;
-  --elw-soft-ink: #2f7cad;
-  --elw-accent-ink: #b35f08;
+  --elw-primary-ink: #0a6485;
+  --elw-soft-ink: #2a6f9c;
+  --elw-accent-ink: #9a4f05;
 
   /* brighter tones, used only on the large headings (>= 3:1 is enough there) */
   --elw-primary-title: #1187b3;
   --elw-soft-title: #3f92c9;
   --elw-accent-title: #d2760b;
 
-  --elw-ink: #0b1b2b;
-  --elw-muted: #55636f;
-  --elw-border: rgb(11 27 43 / 0.13);
-  --elw-border-strong: rgb(11 27 43 / 0.2);
+  --elw-ink: #08182a;
+  --elw-muted: #4a5866;
+  --elw-border: rgb(8 24 42 / 0.16);
+  --elw-border-strong: rgb(8 24 42 / 0.24);
 
   width: 100%;
   padding: clamp(12px, 3vw, 56px);
@@ -59,15 +59,18 @@
   box-shadow: 0 30px 70px rgb(11 27 43 / 0.07);
 }
 
-/* pure white stage with a single soft blue glow in the top-left corner */
+/* the glass needs something behind it to bend: white ground, blue blooms */
 .elw-contact-section__ambient {
   position: absolute;
   z-index: 0;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 60% 66% at 0% 0%, rgb(90 169 224 / 0.17), transparent 74%),
-    radial-gradient(ellipse 32% 36% at 3% 4%, rgb(24 146 194 / 0.09), transparent 72%);
+    radial-gradient(ellipse 52% 58% at 4% 4%, rgb(90 169 224 / 0.5), transparent 72%),
+    radial-gradient(ellipse 40% 48% at 34% 88%, rgb(24 146 194 / 0.32), transparent 72%),
+    radial-gradient(ellipse 44% 50% at 76% 16%, rgb(104 183 238 / 0.3), transparent 72%),
+    radial-gradient(ellipse 42% 46% at 96% 82%, rgb(24 146 194 / 0.26), transparent 74%),
+    radial-gradient(ellipse 26% 30% at 62% 52%, rgb(245 147 39 / 0.12), transparent 72%);
   animation: elw-glow-in 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
@@ -199,8 +202,9 @@
   border: 1px solid rgb(255 255 255 / 0.78);
   border-radius: 34px;
   background:
-    linear-gradient(114deg, transparent 20%, rgb(255 255 255 / 0.62) 34%, rgb(255 255 255 / 0.1) 44%, transparent 54%),
-    linear-gradient(158deg, rgb(255 255 255 / 0.5), rgb(246 251 254 / 0.26) 46%, rgb(222 238 250 / 0.46));
+    linear-gradient(114deg, transparent 20%, rgb(255 255 255 / 0.55) 34%, rgb(255 255 255 / 0.1) 44%, transparent 54%),
+    radial-gradient(ellipse 94% 92% at 62% 50%, rgb(255 255 255 / 0.92) 0 52%, rgb(255 255 255 / 0.26) 100%),
+    linear-gradient(158deg, rgb(255 255 255 / 0.3), rgb(246 251 254 / 0.16) 46%, rgb(214 234 249 / 0.4));
   box-shadow:
     0 30px 60px rgb(11 45 70 / 0.13),
     0 4px 12px rgb(11 45 70 / 0.06),
@@ -363,7 +367,7 @@
   margin: -2px -7px 0;
   border: 1px solid rgb(255 255 255 / 0.9);
   border-radius: 24px 18px 24px 18px;
-  background: linear-gradient(140deg, rgb(255 255 255 / 0.86), rgb(250 253 255 / 0.72));
+  background: linear-gradient(140deg, rgb(255 255 255 / 0.94), rgb(250 253 255 / 0.86));
   box-shadow:
     0 14px 28px rgb(11 45 70 / 0.06),
     inset 0 1px 0 rgb(255 255 255 / 1);
