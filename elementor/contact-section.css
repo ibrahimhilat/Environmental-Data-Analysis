@@ -6,25 +6,26 @@
    ================================================================ */
 
 .elw-contact-shell {
-  /* decorative blues/ambers — marks, rules, icon rings */
+  /* decorative hues — marks, rings, rules, accent tabs. UNCHANGED. */
   --elw-primary: #1892c2;
-  --elw-soft-blue: #5aa9e0;
+  --elw-soft-blue: #68b7ee;
   --elw-accent: #f59327;
+  --elw-white: #ffffff;
+  --elw-ink: #0e2032;
+  --elw-muted: #4a5866;
+  --elw-border: rgb(14 32 50 / 0.14);
 
-  /* text-safe versions of the same hues (>= 4.5:1 on white) */
+  /* text-safe versions of the same three hues, used ONLY where the colour
+     becomes type. The decorative vars above keep their original brightness,
+     so every mark, ring and tab looks exactly as before. */
   --elw-primary-ink: #0a6485;
   --elw-soft-ink: #2a6f9c;
   --elw-accent-ink: #8a4604;
 
-  /* brighter tones, used only on the large headings (>= 3:1 is enough there) */
+  /* the big headings only need 3:1, so they can stay brighter */
   --elw-primary-title: #0f7fa8;
   --elw-soft-title: #2f83bb;
   --elw-accent-title: #b96606;
-
-  --elw-ink: #08182a;
-  --elw-muted: #4a5866;
-  --elw-border: rgb(8 24 42 / 0.16);
-  --elw-border-strong: rgb(8 24 42 / 0.24);
 
   width: 100%;
   padding: clamp(12px, 3vw, 56px);
@@ -32,7 +33,6 @@
   direction: ltr;
   text-align: left;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  -webkit-font-smoothing: antialiased;
 }
 
 .elw-contact-shell *,
@@ -51,60 +51,39 @@
   margin: 0 auto;
   overflow: hidden;
   overflow: clip;
-  border: 1px solid rgb(24 146 194 / 0.12);
   border-radius: clamp(26px, 4vw, 52px);
   direction: ltr;
   text-align: left;
-  background: #ffffff;
-  box-shadow: 0 30px 70px rgb(11 27 43 / 0.07);
+  background: linear-gradient(150deg, #eef6fa 0%, #e2eef6 46%, #d6e7f2 100%);
 }
 
-/* the glass needs something behind it to bend: white ground, blue blooms */
+/* colour blooms — this is what the frosted cards refract */
 .elw-contact-section__ambient {
   position: absolute;
   z-index: 0;
   inset: 0;
   pointer-events: none;
-  /* Blooms are pulled inward so colour actually passes *under* the card band —
-     the glass can only show what is behind it, and the previous placement kept
-     every bloom out at the section edges where no card overlaps it. */
   background:
-    radial-gradient(ellipse 54% 62% at 6% 10%, rgb(90 169 224 / 0.62), transparent 72%),
-    radial-gradient(ellipse 46% 54% at 30% 82%, rgb(24 146 194 / 0.46), transparent 72%),
-    radial-gradient(ellipse 48% 56% at 72% 22%, rgb(104 183 238 / 0.44), transparent 72%),
-    radial-gradient(ellipse 46% 52% at 94% 76%, rgb(24 146 194 / 0.4), transparent 74%),
-    radial-gradient(ellipse 30% 34% at 56% 54%, rgb(245 147 39 / 0.16), transparent 72%);
-  animation: elw-glow-in 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    radial-gradient(ellipse 46% 52% at 14% 22%, rgb(104 183 238 / 0.42), transparent 68%),
+    radial-gradient(ellipse 40% 46% at 82% 30%, rgb(24 146 194 / 0.3), transparent 66%),
+    radial-gradient(ellipse 38% 40% at 62% 92%, rgb(24 146 194 / 0.22), transparent 70%),
+    radial-gradient(ellipse 24% 30% at 94% 84%, rgb(245 147 39 / 0.16), transparent 68%),
+    radial-gradient(ellipse 30% 34% at 36% 68%, rgb(255 255 255 / 0.6), transparent 70%);
 }
 
-/* ---------------- ENTRANCE ANIMATION ---------------- */
-
-@keyframes elw-glow-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Transform only — deliberately no `opacity` here. An element with an animated
-   opacity becomes a "backdrop root", and a backdrop root has nothing painted
-   behind its own children, so every backdrop-filter inside .elw-contact-card
-   silently turns into a no-op. Under animation-timeline: view() the animation
-   stays attached for the life of the page, so the glass would never appear at
-   all. The fade is carried by __top / __content / __clinical-line instead —
-   those are not ancestors of the glass surface. */
-@keyframes elw-card-in {
-  from { transform: translateY(30px) scale(0.985); }
-  to { transform: none; }
-}
-
-@keyframes elw-detail-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+/* faint clinical rule grid */
+.elw-contact-section__grid-lines {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(to right, rgb(14 32 50 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(14 32 50 / 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000, transparent 78%);
 }
 
 /* ---------------- CARD LAYOUT ---------------- */
@@ -115,7 +94,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
-  gap: 0;
+  gap: clamp(10px, 1.2vw, 16px);
   padding: clamp(20px, 2.6vw, 34px) clamp(20px, 2.6vw, 34px) clamp(26px, 3.4vw, 46px);
   direction: ltr;
 }
@@ -131,69 +110,21 @@
   text-align: left;
 }
 
-.elw-contact-card {
-  animation: elw-card-in 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
-
-.elw-contact-card__top { animation: elw-detail-in 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
-.elw-contact-card__content { animation: elw-detail-in 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
-.elw-contact-card__clinical-line { animation: elw-detail-in 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
-
-/* the two lower cards are overlapped on their right edge, so their content
-   is inset further there — otherwise the row arrows sit under the next panel */
-.elw-contact-card--phone,
-.elw-contact-card--location {
-  padding-right: clamp(58px, 4.6vw, 68px);
-}
-
 .elw-contact-card--phone {
-  z-index: 1;
+  z-index: 3;
   margin-top: clamp(48px, 10vw, 148px);
-  animation-delay: 120ms;
 }
-
-.elw-contact-card--phone .elw-contact-card__top { animation-delay: 320ms; }
-.elw-contact-card--phone .elw-contact-card__content { animation-delay: 420ms; }
-.elw-contact-card--phone .elw-contact-card__clinical-line { animation-delay: 500ms; }
 
 .elw-contact-card--location {
   z-index: 2;
   margin-top: clamp(8px, 3vw, 44px);
-  margin-left: clamp(-48px, -3.4vw, -18px);
-  animation-delay: 260ms;
+  margin-left: -34px;
 }
-
-.elw-contact-card--location .elw-contact-card__top { animation-delay: 460ms; }
-.elw-contact-card--location .elw-contact-card__content { animation-delay: 560ms; }
-.elw-contact-card--location .elw-contact-card__clinical-line { animation-delay: 640ms; }
 
 .elw-contact-card--hours {
-  z-index: 3;
+  z-index: 1;
   margin-top: clamp(36px, 8.5vw, 124px);
-  margin-left: clamp(-48px, -3.4vw, -18px);
-  animation-delay: 400ms;
-}
-
-.elw-contact-card--hours .elw-contact-card__top { animation-delay: 600ms; }
-.elw-contact-card--hours .elw-contact-card__content { animation-delay: 700ms; }
-.elw-contact-card--hours .elw-contact-card__clinical-line { animation-delay: 780ms; }
-
-/* Where scroll-driven animation is supported, the cards rise as the section
-   scrolls into view instead of on page load — on a long page the section is
-   usually below the fold, so a load-only animation is never seen. Browsers
-   without support keep the timed version above. */
-@supports (animation-timeline: view()) {
-  .elw-contact-card {
-    animation-timeline: view();
-    animation-delay: 0s;
-    animation-range: entry 0% cover 34%;
-    /* no fill: if a theme wrapper ever makes the timeline inactive, the cards
-       stay at their resting position instead of being stuck offset */
-    animation-fill-mode: none;
-  }
-
-  .elw-contact-card--location { animation-range: entry 0% cover 40%; }
-  .elw-contact-card--hours { animation-range: entry 0% cover 46%; }
+  margin-left: -34px;
 }
 
 /* ---------------- GLASS SURFACE ---------------- */
@@ -203,24 +134,20 @@
   z-index: -2;
   inset: 0;
   pointer-events: none;
-  border: 1px solid rgb(255 255 255 / 0.78);
+  border: 1px solid rgb(255 255 255 / 0.85);
   border-radius: 34px;
-  /* Genuinely translucent — the old near-opaque radial (0.92 white at the card
-     centre) was covering the blur it sat on top of. Legibility is carried by
-     brightness() inside backdrop-filter instead, which lifts whatever is behind
-     the card toward white while leaving the blue blooms blurred and visible. */
+  /* more white in the fill: the blur and the colour blooms still read through
+     it, but every label now sits on a much lighter ground */
   background:
-    linear-gradient(114deg, transparent 20%, rgb(255 255 255 / 0.5) 34%, rgb(255 255 255 / 0.12) 44%, transparent 54%),
-    linear-gradient(158deg, rgb(255 255 255 / 0.38), rgb(255 255 255 / 0.26) 48%, rgb(214 234 249 / 0.34));
+    linear-gradient(112deg, transparent 24%, rgb(255 255 255 / 0.55) 37%, rgb(255 255 255 / 0.08) 46%, transparent 56%),
+    linear-gradient(155deg, rgb(255 255 255 / 0.78), rgb(250 253 255 / 0.6) 52%, rgb(235 246 253 / 0.68));
   box-shadow:
-    0 34px 64px rgb(11 45 70 / 0.16),
-    0 4px 12px rgb(11 45 70 / 0.07),
-    0 0 0 1px rgb(20 92 132 / 0.2),
-    inset 0 1px 0 rgb(255 255 255 / 1),
-    inset 1px 0 0 rgb(255 255 255 / 0.8),
-    inset 0 -18px 34px rgb(255 255 255 / 0.28);
-  -webkit-backdrop-filter: blur(30px) saturate(190%) brightness(1.08);
-  backdrop-filter: blur(30px) saturate(190%) brightness(1.08);
+    0 26px 54px rgb(14 32 50 / 0.12),
+    0 2px 8px rgb(14 32 50 / 0.05),
+    inset 0 1px 0 rgb(255 255 255 / 0.95),
+    inset 0 -1px 0 rgb(255 255 255 / 0.4);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
@@ -231,15 +158,15 @@
 /* the smooth cut: one soft concave bite on the edge each card shares
    with its neighbour, so the three shapes interlock */
 .elw-contact-card--phone .elw-contact-card__surface {
-  border-radius: 34px 44px 46px 34px;
-  -webkit-mask-image: radial-gradient(ellipse 120px 142px at 0% 30%, transparent 0 63%, #000 67%);
-  mask-image: radial-gradient(ellipse 120px 142px at 0% 30%, transparent 0 63%, #000 67%);
+  border-radius: 44px 34px 34px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 132px 150px at 100% 40%, transparent 0 63%, #000 67%);
+  mask-image: radial-gradient(ellipse 132px 150px at 100% 40%, transparent 0 63%, #000 67%);
 }
 
 .elw-contact-card--location .elw-contact-card__surface {
   border-radius: 34px 46px 44px 34px;
-  -webkit-mask-image: radial-gradient(ellipse 128px 152px at 0% 64%, transparent 0 63%, #000 67%);
-  mask-image: radial-gradient(ellipse 128px 152px at 0% 64%, transparent 0 63%, #000 67%);
+  -webkit-mask-image: radial-gradient(ellipse 128px 150px at 0% 72%, transparent 0 63%, #000 67%);
+  mask-image: radial-gradient(ellipse 128px 150px at 0% 72%, transparent 0 63%, #000 67%);
 }
 
 .elw-contact-card--hours .elw-contact-card__surface {
@@ -259,46 +186,22 @@
   content: "";
   border-radius: 99px;
   background: var(--elw-primary);
-}
-
-/* the accent tab moves in with the copy on the overlapped cards */
-.elw-contact-card--phone::after,
-.elw-contact-card--location::after {
-  right: clamp(52px, 4.2vw, 62px);
+  opacity: 0.8;
 }
 
 .elw-contact-card--location::after { background: var(--elw-soft-blue); }
 .elw-contact-card--hours::after { background: var(--elw-accent); }
 
-.elw-contact-card__surface {
-  transform: translateZ(0);
-}
-
 .elw-contact-card:hover .elw-contact-card__surface {
-  border-color: rgb(255 255 255 / 0.95);
+  border-color: rgb(24 146 194 / 0.5);
+  background:
+    linear-gradient(112deg, transparent 24%, rgb(255 255 255 / 0.64) 37%, rgb(255 255 255 / 0.09) 46%, transparent 56%),
+    linear-gradient(155deg, rgb(255 255 255 / 0.88), rgb(250 253 255 / 0.72) 52%, rgb(235 246 253 / 0.8));
   box-shadow:
-    0 38px 76px rgb(11 45 70 / 0.17),
-    0 4px 12px rgb(11 45 70 / 0.07),
-    0 0 0 1px rgb(24 146 194 / 0.3),
+    0 30px 62px rgb(14 32 50 / 0.16),
+    0 2px 8px rgb(14 32 50 / 0.06),
     inset 0 1px 0 rgb(255 255 255 / 1),
-    inset 1px 0 0 rgb(255 255 255 / 0.85),
-    inset 0 -18px 34px rgb(255 255 255 / 0.36);
-}
-
-/* No backdrop-filter (older Firefox, blur disabled by the OS/browser): there is
-   nothing to lift the backdrop toward white, so the fill itself has to do it.
-   Opacity goes up to keep every small label above 4.5:1. */
-@supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
-  .elw-contact-card__surface {
-    background:
-      linear-gradient(114deg, transparent 20%, rgb(255 255 255 / 0.6) 34%, rgb(255 255 255 / 0.2) 44%, transparent 54%),
-      linear-gradient(158deg, rgb(255 255 255 / 0.95), rgb(252 254 255 / 0.91) 48%, rgb(233 244 252 / 0.94));
-  }
-
-  .elw-contact-card__copy-plate {
-    border-color: rgb(255 255 255 / 0.9);
-    background: linear-gradient(140deg, rgb(255 255 255 / 0.94), rgb(250 253 255 / 0.86));
-  }
+    inset 0 -1px 0 rgb(255 255 255 / 0.45);
 }
 
 /* ---------------- CARD HEAD ---------------- */
@@ -319,9 +222,9 @@
   gap: 8px;
   margin-bottom: clamp(20px, 2vw, 28px);
   color: var(--elw-muted);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
@@ -360,11 +263,11 @@
   width: 48px;
   height: 48px;
   place-items: center;
-  border: 1px solid rgb(24 146 194 / 0.28);
+  border: 1px solid rgb(24 146 194 / 0.3);
   border-radius: 50%;
   color: var(--elw-primary-ink);
-  background: #ffffff;
-  box-shadow: 0 2px 8px rgb(11 45 70 / 0.06);
+  background: rgb(255 255 255 / 0.65);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
 }
 
 .elw-contact-card__icon svg {
@@ -373,30 +276,29 @@
 }
 
 .elw-contact-card--location .elw-contact-card__icon {
-  border-color: rgb(90 169 224 / 0.42);
+  border-color: rgb(104 183 238 / 0.45);
   color: var(--elw-soft-ink);
 }
 
 .elw-contact-card--hours .elw-contact-card__icon {
-  border-color: rgb(245 147 39 / 0.42);
+  border-color: rgb(245 147 39 / 0.45);
   color: var(--elw-accent-ink);
 }
 
-/* plate behind title + description — a translucent facet lying on the glass,
-   not an opaque slab. It carries no backdrop-filter of its own: it is painted
-   on top of the already-blurred surface, so a second blur would only re-blur
-   the first one's output while making the card read as solid white. */
+/* translucent plate behind title + description */
 .elw-contact-card__copy-plate {
   position: relative;
   max-width: 100%;
-  padding: 15px 18px 17px;
+  padding: 14px 17px 16px;
   margin: -2px -7px 0;
-  border: 1px solid rgb(255 255 255 / 0.5);
+  border: 1px solid rgb(255 255 255 / 0.7);
   border-radius: 24px 18px 24px 18px;
-  background: linear-gradient(140deg, rgb(255 255 255 / 0.24), rgb(255 255 255 / 0.08));
+  background: linear-gradient(140deg, rgb(255 255 255 / 0.78), rgb(246 252 255 / 0.56));
   box-shadow:
-    0 6px 18px rgb(11 45 70 / 0.04),
-    inset 0 1px 0 rgb(255 255 255 / 0.75);
+    0 12px 26px rgb(14 32 50 / 0.06),
+    inset 0 1px 0 rgb(255 255 255 / 0.9);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
 }
 
 .elw-contact-card__title {
@@ -405,8 +307,8 @@
   color: var(--elw-ink);
   font-size: clamp(25px, 2.2vw, 31px);
   font-weight: 800;
-  letter-spacing: -0.045em;
-  line-height: 1.06;
+  letter-spacing: -0.05em;
+  line-height: 1.04;
   text-align: left;
 }
 
@@ -418,8 +320,8 @@
   max-width: 30ch;
   margin: 13px 0 0;
   color: var(--elw-muted);
-  font-size: 14.5px;
-  line-height: 1.65;
+  font-size: 14px;
+  line-height: 1.6;
   text-align: left;
 }
 
@@ -428,7 +330,7 @@
 .elw-contact-card__content {
   margin-top: clamp(18px, 2vw, 24px);
   padding-top: 17px;
-  border-top: 1px solid var(--elw-border-strong);
+  border-top: 1px solid var(--elw-border);
 }
 
 .elw-contact-card__row {
@@ -444,24 +346,23 @@
 
 .elw-contact-card__row-label {
   grid-column: 1;
-  margin-bottom: 3px;
   color: var(--elw-muted);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
 .elw-contact-card__row-value {
   grid-column: 1;
   color: var(--elw-ink);
-  font: 700 15.5px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font: 700 15px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   transition: color 180ms ease;
 }
 
 .elw-contact-card__row--map .elw-contact-card__row-value {
   font-family: inherit;
-  font-size: 15px;
+  font-size: 14.5px;
 }
 
 .elw-contact-card__row-arrow {
@@ -469,24 +370,12 @@
   grid-column: 2;
   color: var(--elw-primary-ink);
   font-size: 20px;
-  transition: transform 180ms ease;
 }
 
 .elw-contact-card__row--whatsapp .elw-contact-card__row-arrow { color: var(--elw-accent-ink); }
 .elw-contact-card__row--map .elw-contact-card__row-arrow { color: var(--elw-soft-ink); }
 
-.elw-contact-card__row:hover .elw-contact-card__row-value {
-  color: var(--elw-primary-ink);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1px;
-}
-
-.elw-contact-card__row:hover .elw-contact-card__row-arrow {
-  transform: translate(2px, -2px);
-}
-
-.elw-contact-card__row--map:hover .elw-contact-card__row-value { color: var(--elw-soft-ink); }
+.elw-contact-card__row:hover .elw-contact-card__row-value { color: var(--elw-primary-ink); }
 
 .elw-contact-card__info-row {
   display: grid;
@@ -508,10 +397,10 @@
   width: 27px;
   height: 27px;
   place-items: center;
-  border: 1px solid rgb(24 146 194 / 0.22);
+  border: 1px solid rgb(24 146 194 / 0.2);
   border-radius: 50%;
   color: var(--elw-primary-ink);
-  background: #ffffff;
+  background: rgb(255 255 255 / 0.65);
 }
 
 .elw-contact-card__info-icon svg {
@@ -521,8 +410,8 @@
 
 .elw-contact-card__info-text {
   color: var(--elw-muted);
-  font-size: 13.5px;
-  line-height: 1.5;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .elw-contact-card__hours-row {
@@ -536,30 +425,31 @@
 
 .elw-contact-card__hours-day {
   color: var(--elw-ink);
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 700;
 }
 
 .elw-contact-card__hours-time {
   color: var(--elw-primary-ink);
   direction: ltr;
-  font: 700 12.5px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font: 700 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   text-align: right;
 }
 
 .elw-contact-card__hours-row--closed .elw-contact-card__hours-time { color: var(--elw-accent-ink); }
 
+/* was 0.82 — the dimming alone cost this label ~0.8:1 of contrast */
 .elw-contact-card__hours-time em {
   font-style: normal;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .elw-contact-card__postop {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 11px;
-  padding-top: 17px;
+  gap: 10px;
+  padding-top: 16px;
 }
 
 .elw-contact-card__postop-mark {
@@ -567,28 +457,27 @@
   width: 30px;
   height: 30px;
   place-items: center;
-  border: 1px solid rgb(245 147 39 / 0.4);
+  border: 1px solid rgb(245 147 39 / 0.42);
   border-radius: 50%;
   color: var(--elw-accent-ink);
-  background: #ffffff;
+  background: rgb(255 255 255 / 0.5);
 }
 
 .elw-contact-card__postop-copy {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .elw-contact-card__postop-copy strong {
-  color: var(--elw-ink);
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
+  font-size: 10px;
+  letter-spacing: 0.07em;
 }
 
 .elw-contact-card__postop-copy small {
   color: var(--elw-muted);
-  font-size: 12.5px;
-  line-height: 1.45;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 /* ---------------- CARD FOOT ---------------- */
@@ -601,8 +490,8 @@
   margin-top: auto;
   padding-top: 24px;
   color: var(--elw-muted);
-  font: 800 9.5px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  letter-spacing: 0.1em;
+  font: 800 9px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.09em;
 }
 
 .elw-contact-card__clinical-line > span:last-child {
@@ -623,20 +512,6 @@
     padding: 30px;
   }
 
-  .elw-contact-card {
-    z-index: auto;
-  }
-
-  .elw-contact-card--phone,
-  .elw-contact-card--location {
-    padding-right: clamp(24px, 2.2vw, 32px);
-  }
-
-  .elw-contact-card--phone::after,
-  .elw-contact-card--location::after {
-    right: 26px;
-  }
-
   .elw-contact-card,
   .elw-contact-card--phone,
   .elw-contact-card--location,
@@ -652,6 +527,7 @@
   }
 
   /* no neighbour to interlock with — square the bite off */
+  .elw-contact-card__surface,
   .elw-contact-card--phone .elw-contact-card__surface,
   .elw-contact-card--location .elw-contact-card__surface,
   .elw-contact-card--hours .elw-contact-card__surface {
@@ -684,22 +560,16 @@
     grid-column: auto;
     width: auto;
   }
+
+  /* was 9px — kept at the desktop size so the smallest label never shrinks */
+  .elw-contact-card__eyebrow {
+    font-size: 10px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .elw-contact-section__ambient,
-  .elw-contact-card,
-  .elw-contact-card__top,
-  .elw-contact-card__content,
-  .elw-contact-card__clinical-line {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
   .elw-contact-card__surface,
-  .elw-contact-card__row-value,
-  .elw-contact-card__row-arrow {
+  .elw-contact-card__row-value {
     transition: none;
   }
 }
