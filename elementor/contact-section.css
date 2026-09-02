@@ -6,13 +6,25 @@
    ================================================================ */
 
 .elw-contact-shell {
+  /* decorative blues/ambers — marks, rules, icon rings */
   --elw-primary: #1892c2;
-  --elw-soft-blue: #68b7ee;
+  --elw-soft-blue: #5aa9e0;
   --elw-accent: #f59327;
-  --elw-white: #ffffff;
-  --elw-ink: #0e2032;
-  --elw-muted: #64727f;
-  --elw-border: rgb(14 32 50 / 0.14);
+
+  /* text-safe versions of the same hues (>= 4.5:1 on white) */
+  --elw-primary-ink: #0d7096;
+  --elw-soft-ink: #2f7cad;
+  --elw-accent-ink: #b35f08;
+
+  /* brighter tones, used only on the large headings (>= 3:1 is enough there) */
+  --elw-primary-title: #1187b3;
+  --elw-soft-title: #3f92c9;
+  --elw-accent-title: #d2760b;
+
+  --elw-ink: #0b1b2b;
+  --elw-muted: #55636f;
+  --elw-border: rgb(11 27 43 / 0.13);
+  --elw-border-strong: rgb(11 27 43 / 0.2);
 
   width: 100%;
   padding: clamp(12px, 3vw, 56px);
@@ -20,6 +32,7 @@
   direction: ltr;
   text-align: left;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .elw-contact-shell *,
@@ -38,24 +51,26 @@
   margin: 0 auto;
   overflow: hidden;
   overflow: clip;
+  border: 1px solid rgb(24 146 194 / 0.12);
   border-radius: clamp(26px, 4vw, 52px);
   direction: ltr;
   text-align: left;
-  background: linear-gradient(150deg, #eef6fa 0%, #e2eef6 46%, #d6e7f2 100%);
+  background: #ffffff;
+  box-shadow: 0 30px 70px rgb(11 27 43 / 0.07);
 }
 
-/* colour blooms — this is what the frosted cards refract */
+/* white stage, soft blue glow — this is what the glass refracts */
 .elw-contact-section__ambient {
   position: absolute;
   z-index: 0;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 46% 52% at 14% 22%, rgb(104 183 238 / 0.42), transparent 68%),
-    radial-gradient(ellipse 40% 46% at 82% 30%, rgb(24 146 194 / 0.3), transparent 66%),
-    radial-gradient(ellipse 38% 40% at 62% 92%, rgb(24 146 194 / 0.22), transparent 70%),
-    radial-gradient(ellipse 24% 30% at 94% 84%, rgb(245 147 39 / 0.16), transparent 68%),
-    radial-gradient(ellipse 30% 34% at 36% 68%, rgb(255 255 255 / 0.6), transparent 70%);
+    radial-gradient(ellipse 54% 60% at 8% 10%, rgb(90 169 224 / 0.34), transparent 72%),
+    radial-gradient(ellipse 48% 54% at 90% 20%, rgb(24 146 194 / 0.26), transparent 72%),
+    radial-gradient(ellipse 56% 48% at 76% 98%, rgb(24 146 194 / 0.22), transparent 74%),
+    radial-gradient(ellipse 32% 36% at 28% 92%, rgb(90 169 224 / 0.18), transparent 74%),
+    radial-gradient(ellipse 22% 26% at 98% 60%, rgb(245 147 39 / 0.1), transparent 70%);
 }
 
 /* faint clinical rule grid */
@@ -64,13 +79,12 @@
   z-index: 0;
   inset: 0;
   pointer-events: none;
-  opacity: 0.5;
   background-image:
-    linear-gradient(to right, rgb(14 32 50 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(14 32 50 / 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000, transparent 78%);
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000, transparent 78%);
+    linear-gradient(to right, rgb(24 146 194 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(24 146 194 / 0.07) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 72% 74% at 50% 45%, #000, transparent 80%);
+  mask-image: radial-gradient(ellipse 72% 74% at 50% 45%, #000, transparent 80%);
 }
 
 /* ---------------- CARD LAYOUT ---------------- */
@@ -121,18 +135,18 @@
   z-index: -2;
   inset: 0;
   pointer-events: none;
-  border: 1px solid rgb(255 255 255 / 0.85);
+  border: 1px solid rgb(255 255 255 / 0.9);
   border-radius: 34px;
   background:
-    linear-gradient(112deg, transparent 24%, rgb(255 255 255 / 0.46) 37%, rgb(255 255 255 / 0.05) 46%, transparent 56%),
-    linear-gradient(155deg, rgb(255 255 255 / 0.58), rgb(244 251 254 / 0.3) 52%, rgb(224 240 250 / 0.44));
+    linear-gradient(112deg, transparent 24%, rgb(255 255 255 / 0.55) 37%, rgb(255 255 255 / 0.08) 46%, transparent 56%),
+    linear-gradient(155deg, rgb(255 255 255 / 0.9), rgb(252 254 255 / 0.78) 52%, rgb(240 248 253 / 0.84));
   box-shadow:
-    0 26px 54px rgb(14 32 50 / 0.12),
-    0 2px 8px rgb(14 32 50 / 0.05),
-    inset 0 1px 0 rgb(255 255 255 / 0.95),
-    inset 0 -1px 0 rgb(255 255 255 / 0.4);
-  -webkit-backdrop-filter: blur(22px) saturate(150%);
-  backdrop-filter: blur(22px) saturate(150%);
+    0 28px 56px rgb(11 45 70 / 0.11),
+    0 3px 10px rgb(11 45 70 / 0.05),
+    0 0 0 1px rgb(24 146 194 / 0.13),
+    inset 0 1px 0 rgb(255 255 255 / 1);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
@@ -171,22 +185,18 @@
   content: "";
   border-radius: 99px;
   background: var(--elw-primary);
-  opacity: 0.8;
 }
 
 .elw-contact-card--location::after { background: var(--elw-soft-blue); }
 .elw-contact-card--hours::after { background: var(--elw-accent); }
 
 .elw-contact-card:hover .elw-contact-card__surface {
-  border-color: rgb(24 146 194 / 0.5);
-  background:
-    linear-gradient(112deg, transparent 24%, rgb(255 255 255 / 0.56) 37%, rgb(255 255 255 / 0.06) 46%, transparent 56%),
-    linear-gradient(155deg, rgb(255 255 255 / 0.72), rgb(244 251 254 / 0.44) 52%, rgb(224 240 250 / 0.56));
+  border-color: rgb(255 255 255 / 1);
   box-shadow:
-    0 30px 62px rgb(14 32 50 / 0.16),
-    0 2px 8px rgb(14 32 50 / 0.06),
-    inset 0 1px 0 rgb(255 255 255 / 1),
-    inset 0 -1px 0 rgb(255 255 255 / 0.45);
+    0 34px 68px rgb(11 45 70 / 0.15),
+    0 3px 10px rgb(11 45 70 / 0.06),
+    0 0 0 1px rgb(24 146 194 / 0.22),
+    inset 0 1px 0 rgb(255 255 255 / 1);
 }
 
 /* ---------------- CARD HEAD ---------------- */
@@ -207,9 +217,9 @@
   gap: 8px;
   margin-bottom: clamp(20px, 2vw, 28px);
   color: var(--elw-muted);
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 800;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -248,11 +258,11 @@
   width: 48px;
   height: 48px;
   place-items: center;
-  border: 1px solid rgb(24 146 194 / 0.3);
+  border: 1px solid rgb(24 146 194 / 0.28);
   border-radius: 50%;
-  color: var(--elw-primary);
-  background: rgb(255 255 255 / 0.65);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
+  color: var(--elw-primary-ink);
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgb(11 45 70 / 0.06);
 }
 
 .elw-contact-card__icon svg {
@@ -261,29 +271,29 @@
 }
 
 .elw-contact-card--location .elw-contact-card__icon {
-  border-color: rgb(104 183 238 / 0.45);
-  color: var(--elw-soft-blue);
+  border-color: rgb(90 169 224 / 0.42);
+  color: var(--elw-soft-ink);
 }
 
 .elw-contact-card--hours .elw-contact-card__icon {
-  border-color: rgb(245 147 39 / 0.45);
-  color: var(--elw-accent);
+  border-color: rgb(245 147 39 / 0.42);
+  color: var(--elw-accent-ink);
 }
 
-/* translucent plate behind title + description */
+/* plate behind title + description — kept near-opaque for readability */
 .elw-contact-card__copy-plate {
   position: relative;
   max-width: 100%;
-  padding: 14px 17px 16px;
+  padding: 15px 18px 17px;
   margin: -2px -7px 0;
-  border: 1px solid rgb(255 255 255 / 0.7);
+  border: 1px solid rgb(255 255 255 / 0.9);
   border-radius: 24px 18px 24px 18px;
-  background: linear-gradient(140deg, rgb(255 255 255 / 0.62), rgb(240 249 253 / 0.36));
+  background: linear-gradient(140deg, rgb(255 255 255 / 0.92), rgb(250 253 255 / 0.8));
   box-shadow:
-    0 12px 26px rgb(14 32 50 / 0.06),
-    inset 0 1px 0 rgb(255 255 255 / 0.9);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
-  backdrop-filter: blur(10px) saturate(120%);
+    0 14px 28px rgb(11 45 70 / 0.06),
+    inset 0 1px 0 rgb(255 255 255 / 1);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .elw-contact-card__title {
@@ -292,21 +302,21 @@
   color: var(--elw-ink);
   font-size: clamp(25px, 2.2vw, 31px);
   font-weight: 800;
-  letter-spacing: -0.05em;
-  line-height: 1.04;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
   text-align: left;
 }
 
-.elw-contact-card__title span { color: var(--elw-primary); }
-.elw-contact-card--location .elw-contact-card__title span { color: var(--elw-soft-blue); }
-.elw-contact-card--hours .elw-contact-card__title span { color: var(--elw-accent); }
+.elw-contact-card__title span { color: var(--elw-primary-title); }
+.elw-contact-card--location .elw-contact-card__title span { color: var(--elw-soft-title); }
+.elw-contact-card--hours .elw-contact-card__title span { color: var(--elw-accent-title); }
 
 .elw-contact-card__description {
   max-width: 30ch;
   margin: 13px 0 0;
   color: var(--elw-muted);
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 14.5px;
+  line-height: 1.65;
   text-align: left;
 }
 
@@ -315,7 +325,7 @@
 .elw-contact-card__content {
   margin-top: clamp(18px, 2vw, 24px);
   padding-top: 17px;
-  border-top: 1px solid var(--elw-border);
+  border-top: 1px solid var(--elw-border-strong);
 }
 
 .elw-contact-card__row {
@@ -331,36 +341,37 @@
 
 .elw-contact-card__row-label {
   grid-column: 1;
+  margin-bottom: 3px;
   color: var(--elw-muted);
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 800;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .elw-contact-card__row-value {
   grid-column: 1;
   color: var(--elw-ink);
-  font: 700 15px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font: 700 15.5px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   transition: color 180ms ease;
 }
 
 .elw-contact-card__row--map .elw-contact-card__row-value {
   font-family: inherit;
-  font-size: 14.5px;
+  font-size: 15px;
 }
 
 .elw-contact-card__row-arrow {
   grid-row: 1 / span 2;
   grid-column: 2;
-  color: var(--elw-primary);
+  color: var(--elw-primary-ink);
   font-size: 20px;
 }
 
-.elw-contact-card__row--whatsapp .elw-contact-card__row-arrow { color: var(--elw-accent); }
-.elw-contact-card__row--map .elw-contact-card__row-arrow { color: var(--elw-soft-blue); }
+.elw-contact-card__row--whatsapp .elw-contact-card__row-arrow { color: var(--elw-accent-ink); }
+.elw-contact-card__row--map .elw-contact-card__row-arrow { color: var(--elw-soft-ink); }
 
-.elw-contact-card__row:hover .elw-contact-card__row-value { color: var(--elw-primary); }
+.elw-contact-card__row:hover .elw-contact-card__row-value { color: var(--elw-primary-ink); }
 
 .elw-contact-card__info-row {
   display: grid;
@@ -382,10 +393,10 @@
   width: 27px;
   height: 27px;
   place-items: center;
-  border: 1px solid rgb(24 146 194 / 0.2);
+  border: 1px solid rgb(24 146 194 / 0.22);
   border-radius: 50%;
-  color: var(--elw-primary);
-  background: rgb(255 255 255 / 0.65);
+  color: var(--elw-primary-ink);
+  background: #ffffff;
 }
 
 .elw-contact-card__info-icon svg {
@@ -395,8 +406,8 @@
 
 .elw-contact-card__info-text {
   color: var(--elw-muted);
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 13.5px;
+  line-height: 1.5;
 }
 
 .elw-contact-card__hours-row {
@@ -410,30 +421,30 @@
 
 .elw-contact-card__hours-day {
   color: var(--elw-ink);
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 700;
 }
 
 .elw-contact-card__hours-time {
-  color: var(--elw-primary);
+  color: var(--elw-primary-ink);
   direction: ltr;
-  font: 700 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font: 700 12.5px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   text-align: right;
 }
 
-.elw-contact-card__hours-row--closed .elw-contact-card__hours-time { color: var(--elw-accent); }
+.elw-contact-card__hours-row--closed .elw-contact-card__hours-time { color: var(--elw-accent-ink); }
 
 .elw-contact-card__hours-time em {
   font-style: normal;
-  opacity: 0.82;
+  opacity: 0.9;
 }
 
 .elw-contact-card__postop {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 10px;
-  padding-top: 16px;
+  gap: 11px;
+  padding-top: 17px;
 }
 
 .elw-contact-card__postop-mark {
@@ -441,27 +452,28 @@
   width: 30px;
   height: 30px;
   place-items: center;
-  border: 1px solid rgb(245 147 39 / 0.42);
+  border: 1px solid rgb(245 147 39 / 0.4);
   border-radius: 50%;
-  color: var(--elw-accent);
-  background: rgb(255 255 255 / 0.5);
+  color: var(--elw-accent-ink);
+  background: #ffffff;
 }
 
 .elw-contact-card__postop-copy {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .elw-contact-card__postop-copy strong {
-  font-size: 10px;
-  letter-spacing: 0.07em;
+  color: var(--elw-ink);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
 }
 
 .elw-contact-card__postop-copy small {
   color: var(--elw-muted);
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 12.5px;
+  line-height: 1.45;
 }
 
 /* ---------------- CARD FOOT ---------------- */
@@ -474,8 +486,8 @@
   margin-top: auto;
   padding-top: 24px;
   color: var(--elw-muted);
-  font: 800 9px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  letter-spacing: 0.09em;
+  font: 800 9.5px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.1em;
 }
 
 .elw-contact-card__clinical-line > span:last-child {
@@ -511,13 +523,13 @@
   }
 
   /* no neighbour to interlock with — square the bite off */
-  .elw-contact-card__surface,
   .elw-contact-card--phone .elw-contact-card__surface,
   .elw-contact-card--location .elw-contact-card__surface,
   .elw-contact-card--hours .elw-contact-card__surface {
-  border-radius: 34px 44px 46px 34px;
-  -webkit-mask-image: radial-gradient(ellipse 132px 156px at 0% 34%, transparent 0 63%, #000 67%);
-  mask-image: radial-gradient(ellipse 132px 156px at 0% 34%, transparent 0 63%, #000 67%);
+    border-radius: 34px;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
 @media (max-width: 680px) {
@@ -542,10 +554,6 @@
   .elw-contact-card--hours {
     grid-column: auto;
     width: auto;
-  }
-
-  .elw-contact-card__eyebrow {
-    font-size: 9px;
   }
 }
 
