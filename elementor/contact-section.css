@@ -59,32 +59,45 @@
   box-shadow: 0 30px 70px rgb(11 27 43 / 0.07);
 }
 
-/* white stage, soft blue glow — this is what the glass refracts */
+/* pure white stage with a single soft blue glow in the top-left corner */
 .elw-contact-section__ambient {
   position: absolute;
   z-index: 0;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 54% 60% at 8% 10%, rgb(90 169 224 / 0.34), transparent 72%),
-    radial-gradient(ellipse 48% 54% at 90% 20%, rgb(24 146 194 / 0.26), transparent 72%),
-    radial-gradient(ellipse 56% 48% at 76% 98%, rgb(24 146 194 / 0.22), transparent 74%),
-    radial-gradient(ellipse 32% 36% at 28% 92%, rgb(90 169 224 / 0.18), transparent 74%),
-    radial-gradient(ellipse 22% 26% at 98% 60%, rgb(245 147 39 / 0.1), transparent 70%);
+    radial-gradient(ellipse 56% 62% at 0% 0%, rgb(90 169 224 / 0.3), transparent 72%),
+    radial-gradient(ellipse 30% 34% at 4% 6%, rgb(24 146 194 / 0.16), transparent 70%);
+  animation: elw-glow-in 1400ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
-/* faint clinical rule grid */
-.elw-contact-section__grid-lines {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, rgb(24 146 194 / 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(24 146 194 / 0.07) 1px, transparent 1px);
-  background-size: 72px 72px;
-  -webkit-mask-image: radial-gradient(ellipse 72% 74% at 50% 45%, #000, transparent 80%);
-  mask-image: radial-gradient(ellipse 72% 74% at 50% 45%, #000, transparent 80%);
+/* ---------------- ENTRANCE ANIMATION ---------------- */
+
+@keyframes elw-glow-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes elw-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes elw-detail-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ---------------- CARD LAYOUT ---------------- */
@@ -111,21 +124,62 @@
   text-align: left;
 }
 
+.elw-contact-card {
+  animation: elw-card-in 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.elw-contact-card__top { animation: elw-detail-in 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+.elw-contact-card__content { animation: elw-detail-in 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+.elw-contact-card__clinical-line { animation: elw-detail-in 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+
 .elw-contact-card--phone {
   z-index: 3;
   margin-top: clamp(48px, 10vw, 148px);
+  animation-delay: 120ms;
 }
+
+.elw-contact-card--phone .elw-contact-card__top { animation-delay: 320ms; }
+.elw-contact-card--phone .elw-contact-card__content { animation-delay: 420ms; }
+.elw-contact-card--phone .elw-contact-card__clinical-line { animation-delay: 500ms; }
 
 .elw-contact-card--location {
   z-index: 2;
   margin-top: clamp(8px, 3vw, 44px);
   margin-left: -34px;
+  animation-delay: 260ms;
 }
+
+.elw-contact-card--location .elw-contact-card__top { animation-delay: 460ms; }
+.elw-contact-card--location .elw-contact-card__content { animation-delay: 560ms; }
+.elw-contact-card--location .elw-contact-card__clinical-line { animation-delay: 640ms; }
 
 .elw-contact-card--hours {
   z-index: 1;
   margin-top: clamp(36px, 8.5vw, 124px);
   margin-left: -34px;
+  animation-delay: 400ms;
+}
+
+.elw-contact-card--hours .elw-contact-card__top { animation-delay: 600ms; }
+.elw-contact-card--hours .elw-contact-card__content { animation-delay: 700ms; }
+.elw-contact-card--hours .elw-contact-card__clinical-line { animation-delay: 780ms; }
+
+/* Where scroll-driven animation is supported, the cards rise as the section
+   scrolls into view instead of on page load — on a long page the section is
+   usually below the fold, so a load-only animation is never seen. Browsers
+   without support keep the timed version above. */
+@supports (animation-timeline: view()) {
+  .elw-contact-card {
+    animation-timeline: view();
+    animation-delay: 0s;
+    animation-range: entry 0% cover 34%;
+    /* no fill: if a theme wrapper ever makes the timeline inactive, the cards
+       stay fully visible instead of being stuck at opacity 0 */
+    animation-fill-mode: none;
+  }
+
+  .elw-contact-card--location { animation-range: entry 0% cover 40%; }
+  .elw-contact-card--hours { animation-range: entry 0% cover 46%; }
 }
 
 /* ---------------- GLASS SURFACE ---------------- */
@@ -189,6 +243,10 @@
 
 .elw-contact-card--location::after { background: var(--elw-soft-blue); }
 .elw-contact-card--hours::after { background: var(--elw-accent); }
+
+.elw-contact-card__surface {
+  transform: translateZ(0);
+}
 
 .elw-contact-card:hover .elw-contact-card__surface {
   border-color: rgb(255 255 255 / 1);
@@ -366,12 +424,24 @@
   grid-column: 2;
   color: var(--elw-primary-ink);
   font-size: 20px;
+  transition: transform 180ms ease;
 }
 
 .elw-contact-card__row--whatsapp .elw-contact-card__row-arrow { color: var(--elw-accent-ink); }
 .elw-contact-card__row--map .elw-contact-card__row-arrow { color: var(--elw-soft-ink); }
 
-.elw-contact-card__row:hover .elw-contact-card__row-value { color: var(--elw-primary-ink); }
+.elw-contact-card__row:hover .elw-contact-card__row-value {
+  color: var(--elw-primary-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.elw-contact-card__row:hover .elw-contact-card__row-arrow {
+  transform: translate(2px, -2px);
+}
+
+.elw-contact-card__row--map:hover .elw-contact-card__row-value { color: var(--elw-soft-ink); }
 
 .elw-contact-card__info-row {
   display: grid;
@@ -558,8 +628,19 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .elw-contact-section__ambient,
+  .elw-contact-card,
+  .elw-contact-card__top,
+  .elw-contact-card__content,
+  .elw-contact-card__clinical-line {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
   .elw-contact-card__surface,
-  .elw-contact-card__row-value {
+  .elw-contact-card__row-value,
+  .elw-contact-card__row-arrow {
     transition: none;
   }
 }
