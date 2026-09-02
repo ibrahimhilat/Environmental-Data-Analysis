@@ -8,6 +8,9 @@ selector {
   --elw-border: rgb(150 150 150 / 0.34);
   --elw-muted: rgb(0 0 0 / 0.64);
   --elw-shadow: 0 1.5rem 3.5rem rgb(0 0 0 / 0.09);
+  --elw-glass-edge: rgb(255 255 255 / 0.78);
+  --elw-glass-hairline: rgb(150 150 150 / 0.22);
+  --elw-ease: cubic-bezier(0.22, 1, 0.36, 1);
   width: 100%;
   margin: 0;
   padding: 0;
@@ -26,66 +29,136 @@ selector *::after {
   box-sizing: border-box;
 }
 
-/* ----------------------------------------------------------------
-   SECTION SHELL
----------------------------------------------------------------- */
+/* ============================================================
+   SHELL & ATMOSPHERE
+   ============================================================ */
 
-selector .elw-hero {
+selector .elw-hero-shell {
   width: 100%;
-  padding-block: clamp(4rem, 7vw, 7rem);
-  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+selector .elw-hero-section {
+  position: relative;
+  width: 100%;
+  padding-block: clamp(3.5rem, 6.5vw, 6.5rem);
+  padding-inline: clamp(1rem, 4vw, 3.5rem);
+  overflow: hidden;
   background: var(--elw-white);
 }
 
-selector .elw-hero__inner {
-  width: min(100%, 78rem);
-  margin-inline: auto;
+selector .elw-hero-section__ambient {
+  position: absolute;
+  z-index: 0;
+  inset: -12% -6%;
+  background:
+    radial-gradient(38rem 28rem at 10% 4%, rgb(104 183 238 / 0.24), transparent 66%),
+    radial-gradient(30rem 24rem at 92% 88%, rgb(245 147 39 / 0.10), transparent 68%),
+    radial-gradient(28rem 26rem at 74% 6%, rgb(24 146 194 / 0.14), transparent 70%);
+  pointer-events: none;
 }
 
-/* ----------------------------------------------------------------
-   A. EYEBROW / BRAND LINE
----------------------------------------------------------------- */
+selector .elw-hero-section__grid-lines {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgb(150 150 150 / 0.11) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(150 150 150 / 0.11) 1px, transparent 1px);
+  background-size:
+    clamp(3.5rem, 6vw, 5.5rem) clamp(3.5rem, 6vw, 5.5rem);
+  -webkit-mask-image: radial-gradient(125% 100% at 50% 0%, #000 26%, transparent 76%);
+  mask-image: radial-gradient(125% 100% at 50% 0%, #000 26%, transparent 76%);
+  pointer-events: none;
+}
 
-selector .elwahidi-brand-line {
+selector .elw-hero-section__layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: min(100%, 82rem);
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1.22fr) minmax(20rem, 0.78fr);
+  align-items: stretch;
+  gap: clamp(1rem, 1.8vw, 1.6rem);
+}
+
+/* ============================================================
+   GLASS SURFACES
+   ============================================================ */
+
+selector .elw-hero-panel,
+selector .elw-hero-card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: clamp(1.5rem, 2.8vw, 2.75rem);
+}
+
+selector .elw-hero-panel__surface,
+selector .elw-hero-card__surface,
+selector .elw-hero-data__surface {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border: 1px solid var(--elw-glass-edge);
+  border-radius: 2px;
+  background:
+    linear-gradient(
+      152deg,
+      rgb(255 255 255 / 0.86) 0%,
+      rgb(255 255 255 / 0.62) 46%,
+      rgb(255 255 255 / 0.72) 100%
+    );
+  box-shadow:
+    var(--elw-shadow),
+    inset 0 1px 0 rgb(255 255 255 / 0.92);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  pointer-events: none;
+  transition:
+    border-color 0.5s var(--elw-ease),
+    box-shadow 0.5s var(--elw-ease);
+}
+
+selector .elw-hero-panel__surface::after,
+selector .elw-hero-card__surface::after {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: min(9rem, 40%);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--elw-primary),
+    rgb(24 146 194 / 0)
+  );
+  content: "";
+}
+
+selector .elw-hero-panel:hover .elw-hero-panel__surface,
+selector .elw-hero-card:hover .elw-hero-card__surface {
+  border-color: rgb(104 183 238 / 0.85);
+  box-shadow:
+    0 2rem 4.25rem rgb(0 0 0 / 0.11),
+    inset 0 1px 0 rgb(255 255 255 / 0.95);
+}
+
+selector .elw-hero-panel > *:not(.elw-hero-panel__surface),
+selector .elw-hero-card > *:not(.elw-hero-card__surface) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   EYEBROW
+   ============================================================ */
+
+selector .elw-hero-eyebrow {
   display: flex;
   align-items: center;
-  width: 100%;
-  min-width: 0;
-  margin: 0 0 clamp(2.5rem, 5vw, 4.25rem);
+  gap: 0.6rem;
   color: var(--elw-black);
-  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0s both;
-}
-
-selector .elwahidi-brand-mark {
-  position: relative;
-  display: inline-grid;
-  width: 22px;
-  height: 22px;
-  flex: 0 0 22px;
-  place-items: center;
-  margin-right: 0.8rem;
-  border: 1px solid rgb(24 146 194 / 0.7);
-  border-radius: 50%;
-  transition:
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-selector .elwahidi-brand-mark > span {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--elw-accent);
-}
-
-selector .elwahidi-brand-line:hover .elwahidi-brand-mark {
-  border-color: var(--elw-black);
-  transform: rotate(45deg);
-}
-
-selector .elwahidi-brand-text,
-selector .elwahidi-brand-location {
-  flex: 0 0 auto;
   font-size: 11px;
   font-weight: 600;
   line-height: 1;
@@ -93,14 +166,42 @@ selector .elwahidi-brand-location {
   text-transform: uppercase;
 }
 
-selector .elwahidi-brand-location {
+selector .elw-hero-eyebrow > span:last-child {
   color: var(--elw-neutral);
 }
 
-selector .elwahidi-brand-divider {
-  width: min(9vw, 5.5rem);
+selector .elw-hero-eyebrow__mark {
+  position: relative;
+  display: inline-grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  place-items: center;
+  border: 1px solid rgb(24 146 194 / 0.7);
+  border-radius: 50%;
+  transition:
+    transform 0.55s var(--elw-ease),
+    border-color 0.55s var(--elw-ease);
+}
+
+selector .elw-hero-eyebrow__mark::before {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--elw-accent);
+  content: "";
+}
+
+selector .elw-hero-panel:hover .elw-hero-eyebrow__mark,
+selector .elw-hero-card:hover .elw-hero-eyebrow__mark {
+  border-color: var(--elw-black);
+  transform: rotate(45deg);
+}
+
+selector .elw-hero-eyebrow__divider {
+  width: min(7vw, 3.5rem);
   height: 1px;
-  margin-inline: clamp(0.85rem, 1.6vw, 1.35rem);
+  flex: 0 1 auto;
   background: linear-gradient(
     90deg,
     var(--elw-primary),
@@ -108,252 +209,327 @@ selector .elwahidi-brand-divider {
   );
 }
 
-/* ----------------------------------------------------------------
-   LAYOUT
----------------------------------------------------------------- */
+/* ============================================================
+   IDENTITY (INDEX + ICON)
+   ============================================================ */
 
-selector .elw-hero__layout {
+selector .elw-hero-identity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: clamp(1.75rem, 3vw, 2.75rem);
+  padding-bottom: clamp(1.25rem, 2vw, 1.75rem);
+  border-bottom: 1px solid var(--elw-glass-hairline);
+}
+
+selector .elw-hero-identity__number {
+  color: var(--elw-neutral);
+  font-size: clamp(2.25rem, 3.6vw, 3.25rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+selector .elw-hero-identity__icon {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(20rem, 0.88fr);
-  align-items: start;
-  gap: clamp(3rem, 6vw, 6.5rem);
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 2.5rem;
+  place-items: center;
+  color: var(--elw-primary);
+  transition: color 0.5s var(--elw-ease);
 }
 
-selector .elw-hero__copy {
-  min-width: 0;
+selector .elw-hero-identity__icon svg {
+  width: 24px;
+  height: 24px;
 }
 
-/* ----------------------------------------------------------------
-   B. TITLE WITH DRAW-LINE
----------------------------------------------------------------- */
+selector .elw-hero-panel:hover .elw-hero-identity__icon,
+selector .elw-hero-card:hover .elw-hero-identity__icon {
+  color: var(--elw-black);
+}
+
+/* ============================================================
+   TITLES
+   ============================================================ */
+
+selector .elw-hero-panel__copy-plate {
+  margin-top: clamp(1.5rem, 2.6vw, 2.25rem);
+}
 
 selector .elw-title {
-  max-width: 15ch;
+  max-width: 16ch;
   margin: 0;
   color: var(--elw-black);
-  font-size: clamp(2.5rem, 5.4vw, 4.75rem);
-  font-weight: 850;
-  line-height: 0.95;
-  letter-spacing: -0.05em;
-  text-wrap: balance;
-  animation: elw-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
-}
-
-selector .elw-title > span {
-  position: relative;
-  z-index: 0;
-  display: inline-block;
-  color: var(--elw-black);
-}
-
-selector .elw-title > span::after {
-  position: absolute;
-  z-index: -1;
-  right: 0;
-  bottom: 0.05em;
-  left: 0;
-  height: clamp(0.25rem, 0.5vw, 0.45rem);
-  background: var(--elw-soft-blue);
-  content: "";
-  transform: scaleX(0);
-  transform-origin: left center;
-  animation: elw-title-line 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
-}
-
-/* ----------------------------------------------------------------
-   COPY
----------------------------------------------------------------- */
-
-selector .elw-hero__specialty {
-  max-width: 46ch;
-  margin: clamp(1.65rem, 2.8vw, 2.35rem) 0 0;
-  padding-left: 1rem;
-  border-left: 2px solid var(--elw-primary);
-  color: var(--elw-black);
-  font-size: clamp(1rem, 1.2vw, 1.15rem);
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-selector .elw-hero__lede {
-  max-width: 62ch;
-  margin: clamp(1.35rem, 2.2vw, 1.85rem) 0 0;
-  color: var(--elw-muted);
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.75;
-  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
-}
-
-selector .elw-hero__detail {
-  max-width: 62ch;
-  margin: clamp(1.25rem, 2vw, 1.6rem) 0 0;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--elw-border);
-  color: var(--elw-neutral);
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.7;
-  font-variant-numeric: tabular-nums;
-  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
-}
-
-/* ----------------------------------------------------------------
-   C. BUTTONS
----------------------------------------------------------------- */
-
-selector .elw-hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: clamp(2rem, 3.2vw, 2.85rem);
-  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
-}
-
-selector .elw-btn {
-  display: inline-flex;
-  min-height: 3.4rem;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-  padding: 1rem clamp(1.25rem, 2vw, 1.75rem);
-  border: 1px solid transparent;
-  border-radius: 0;
-  color: var(--elw-black);
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-  transition:
-    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-selector .elw-btn--primary {
-  background: var(--elw-soft-blue);
-  color: var(--elw-black);
-}
-
-selector .elw-btn--primary:hover {
-  background: var(--elw-black);
-  color: var(--elw-white);
-}
-
-selector .elw-btn--primary:hover .elw-btn__icon {
-  color: var(--elw-accent);
-}
-
-selector .elw-btn--secondary {
-  border-color: var(--elw-black);
-  background: var(--elw-white);
-  color: var(--elw-black);
-}
-
-selector .elw-btn--secondary:hover {
-  border-color: var(--elw-primary);
-  background: rgb(24 146 194 / 0.03);
-}
-
-selector .elw-btn__icon {
-  display: inline-grid;
-  width: 20px;
-  height: 20px;
-  flex: 0 0 20px;
-  place-items: center;
-  color: inherit;
-  transition: color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-selector .elw-btn__icon svg {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.25;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-}
-
-selector .elw-btn:focus-visible,
-selector .elw-cred__link:focus-visible {
-  outline: 2px solid var(--elw-primary);
-  outline-offset: 3px;
-}
-
-/* ----------------------------------------------------------------
-   E. CREDENTIAL BLOCK
----------------------------------------------------------------- */
-
-selector .elw-cred {
-  min-width: 0;
-  padding-top: 1.15rem;
-  border-top: 1px solid var(--elw-black);
-  background: transparent;
-  animation: elw-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
-}
-
-selector .elw-cred__eyebrow {
-  margin: 0;
-  color: var(--elw-primary);
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-selector .elw-cred__name {
-  margin: clamp(1.35rem, 2.2vw, 1.85rem) 0 0;
-  color: var(--elw-black);
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-size: clamp(2.35rem, 4.8vw, 4.25rem);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.05em;
   text-wrap: balance;
 }
 
-selector .elw-cred__postnom {
-  margin: 0.7rem 0 0;
+selector .elw-title > span,
+selector .elw-hero-card__title > span {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  color: var(--elw-black);
+}
+
+selector .elw-title > span::after,
+selector .elw-hero-card__title > span::after {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0.05em;
+  left: 0;
+  height: clamp(0.22rem, 0.45vw, 0.42rem);
+  background: var(--elw-soft-blue);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.85s var(--elw-ease) 0.55s;
+}
+
+selector .elw-hero-section.elw-is-visible .elw-title > span::after,
+selector .elw-hero-section.elw-is-visible .elw-hero-card__title > span::after {
+  transform: scaleX(1);
+}
+
+selector .elw-hero-panel__specialty {
+  max-width: 46ch;
+  margin: clamp(1.35rem, 2.2vw, 1.85rem) 0 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--elw-primary);
+  color: var(--elw-black);
+  font-size: clamp(1rem, 1.15vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+selector .elw-hero-panel__description {
+  max-width: 62ch;
+  margin: clamp(1.15rem, 1.9vw, 1.6rem) 0 0;
+  color: var(--elw-muted);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+selector .elw-hero-card__copy-plate {
+  margin-top: clamp(1.35rem, 2.2vw, 1.85rem);
+}
+
+selector .elw-hero-card__title {
+  margin: 0;
+  color: var(--elw-black);
+  font-size: clamp(1.5rem, 2.1vw, 1.95rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+selector .elw-hero-card__description {
+  margin: 0.75rem 0 0;
   color: var(--elw-neutral);
   font-size: 11px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.5;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-selector .elw-cred__list {
-  margin: clamp(1.5rem, 2.5vw, 2rem) 0 0;
-  padding: 0;
-  border-top: 1px solid var(--elw-border);
+/* ============================================================
+   PANEL INFO ROWS
+   ============================================================ */
+
+selector .elw-hero-panel__content {
+  margin-top: clamp(1.5rem, 2.6vw, 2.25rem);
 }
 
-selector .elw-cred__item {
+selector .elw-hero-panel__info-row {
   position: relative;
-  padding: clamp(1rem, 1.7vw, 1.3rem) 0 clamp(1rem, 1.7vw, 1.3rem) 1rem;
-  border-bottom: 1px solid var(--elw-border);
-  transition: background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 0 0.85rem 1.15rem;
+  border-bottom: 1px solid var(--elw-glass-hairline);
 }
 
-selector .elw-cred__item:hover {
-  background: rgb(24 146 194 / 0.03);
+selector .elw-hero-panel__info-row:first-child {
+  border-top: 1px solid var(--elw-glass-hairline);
 }
 
-selector .elw-cred__item--key::before {
+selector .elw-hero-panel__info-line {
   position: absolute;
-  top: calc(clamp(1rem, 1.7vw, 1.3rem) + 0.35rem);
+  top: 50%;
   left: 0;
-  width: 4px;
-  height: 4px;
+  width: 2px;
+  height: 0;
+  background: var(--elw-primary);
+  transform: translateY(-50%);
+  transition: height 0.5s var(--elw-ease);
+}
+
+selector .elw-hero-panel__info-row:hover .elw-hero-panel__info-line {
+  height: 1.5rem;
+}
+
+selector .elw-hero-panel__info-icon {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  place-items: center;
+  color: var(--elw-primary);
+}
+
+selector .elw-hero-panel__info-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+selector .elw-hero-panel__info-text {
+  color: var(--elw-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+selector .elw-hero-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: clamp(1.75rem, 2.8vw, 2.35rem);
+}
+
+selector .elw-hero-btn {
+  display: inline-flex;
+  min-height: 3.4rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 1rem clamp(1.25rem, 2vw, 1.75rem);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: var(--elw-black);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    color 0.45s var(--elw-ease),
+    background-color 0.45s var(--elw-ease),
+    border-color 0.45s var(--elw-ease);
+}
+
+selector .elw-hero-btn--primary {
+  background: var(--elw-soft-blue);
+  color: var(--elw-black);
+}
+
+selector .elw-hero-btn--primary:hover {
+  background: var(--elw-black);
+  color: var(--elw-white);
+}
+
+selector .elw-hero-btn--primary:hover .elw-hero-btn__icon {
+  color: var(--elw-accent);
+}
+
+selector .elw-hero-btn--secondary {
+  border-color: var(--elw-black);
+  background: rgb(255 255 255 / 0.55);
+  color: var(--elw-black);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+selector .elw-hero-btn--secondary:hover {
+  border-color: var(--elw-primary);
+  background: rgb(255 255 255 / 0.85);
+  color: var(--elw-primary);
+}
+
+selector .elw-hero-btn__icon {
+  display: inline-grid;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  place-items: center;
+  color: inherit;
+  transition: color 0.45s var(--elw-ease);
+}
+
+selector .elw-hero-btn__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+selector .elw-hero-btn:focus-visible,
+selector .elw-hero-card__row:focus-visible {
+  outline: 2px solid var(--elw-primary);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   CREDENTIAL RECORDS
+   ============================================================ */
+
+selector .elw-hero-card__content {
+  margin-top: clamp(1.5rem, 2.4vw, 2rem);
+  border-top: 1px solid var(--elw-glass-hairline);
+}
+
+selector .elw-hero-record {
+  position: relative;
+  display: block;
+  padding: clamp(0.95rem, 1.6vw, 1.2rem) 0 clamp(0.95rem, 1.6vw, 1.2rem) 1.15rem;
+  border-bottom: 1px solid var(--elw-glass-hairline);
+  transition: background-color 0.45s var(--elw-ease);
+}
+
+selector .elw-hero-record:hover {
+  background: rgb(24 146 194 / 0.045);
+}
+
+selector .elw-hero-record__line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background: var(--elw-primary);
+  transform: translateY(-50%);
+  transition: height 0.5s var(--elw-ease);
+}
+
+selector .elw-hero-record:hover .elw-hero-record__line {
+  height: 2.25rem;
+}
+
+selector .elw-hero-record--key::after {
+  position: absolute;
+  top: calc(clamp(0.95rem, 1.6vw, 1.2rem) + 0.4rem);
+  left: -0.45rem;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--elw-accent);
   content: "";
 }
 
-selector .elw-cred__issuer {
-  margin: 0;
+selector .elw-hero-record__label {
+  display: block;
   color: var(--elw-neutral);
   font-size: 11px;
   font-weight: 600;
@@ -362,17 +538,18 @@ selector .elw-cred__issuer {
   text-transform: uppercase;
 }
 
-selector .elw-cred__value {
-  margin: 0.55rem 0 0;
+selector .elw-hero-record__value {
+  display: block;
+  margin-top: 0.5rem;
   color: var(--elw-black);
-  font-size: 0.95rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   line-height: 1.5;
 }
 
-selector .elw-cred__note {
+selector .elw-hero-record__note {
   display: block;
-  margin-top: 0.35rem;
+  margin-top: 0.3rem;
   color: var(--elw-muted);
   font-size: 13px;
   font-weight: 400;
@@ -380,56 +557,120 @@ selector .elw-cred__note {
   font-variant-numeric: tabular-nums;
 }
 
-selector .elw-cred__link {
-  display: inline-flex;
-  min-height: 3rem;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: clamp(1.35rem, 2.2vw, 1.85rem);
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--elw-black);
-  color: var(--elw-black);
-  font-size: 0.875rem;
-  font-weight: 700;
-  line-height: 1.2;
-  text-decoration: none;
-  transition:
-    color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-selector .elw-cred__link:hover {
-  border-color: var(--elw-primary);
-  color: var(--elw-primary);
-}
-
-/* ----------------------------------------------------------------
-   DATA STRIP
----------------------------------------------------------------- */
-
-selector .elw-data {
+selector .elw-hero-card__row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: clamp(3.5rem, 6vw, 5.5rem) 0 0;
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.35rem 1rem;
+  padding: clamp(1rem, 1.7vw, 1.25rem) 0.85rem clamp(1rem, 1.7vw, 1.25rem) 1.15rem;
+  border-bottom: 1px solid var(--elw-glass-hairline);
+  color: var(--elw-black);
+  text-decoration: none;
+  transition: background-color 0.45s var(--elw-ease);
+}
+
+selector .elw-hero-card__row:hover {
+  background: rgb(24 146 194 / 0.06);
+}
+
+selector .elw-hero-card__row-label {
+  grid-column: 1;
+  color: var(--elw-neutral);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+selector .elw-hero-card__row-value {
+  grid-column: 1;
+  color: var(--elw-black);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+selector .elw-hero-card__row-arrow {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  color: var(--elw-primary);
+  font-size: 1.05rem;
+  line-height: 1;
+  transition:
+    color 0.45s var(--elw-ease),
+    transform 0.45s var(--elw-ease);
+}
+
+selector .elw-hero-card__row:hover .elw-hero-card__row-arrow {
+  color: var(--elw-accent);
+  transform: translate(0.2rem, -0.2rem);
+}
+
+/* ============================================================
+   CLINICAL LINE
+   ============================================================ */
+
+selector .elw-hero-clinical-line {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: auto;
+  padding-top: clamp(1.35rem, 2.2vw, 1.85rem);
+  color: var(--elw-neutral);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+selector .elw-hero-clinical-line > span:last-child {
+  height: 1px;
+  flex: 1 1 auto;
+  background: linear-gradient(
+    90deg,
+    var(--elw-glass-hairline),
+    rgb(150 150 150 / 0)
+  );
+}
+
+/* ============================================================
+   DATA STRIP
+   ============================================================ */
+
+selector .elw-hero-data {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: min(100%, 82rem);
+  margin: clamp(1rem, 1.8vw, 1.6rem) auto 0;
   padding: 0;
-  border-top: 1px solid var(--elw-black);
-  border-bottom: 1px solid var(--elw-border);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   list-style: none;
-  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
 }
 
-selector .elw-data__item {
+selector .elw-hero-data__surface {
+  z-index: 0;
+  grid-area: 1 / 1 / 2 / 4;
+}
+
+selector .elw-hero-data:hover .elw-hero-data__surface {
+  border-color: rgb(104 183 238 / 0.85);
+}
+
+selector .elw-hero-data__item {
+  position: relative;
+  z-index: 1;
   min-width: 0;
-  padding: clamp(1.35rem, 2.4vw, 1.9rem) clamp(1rem, 2vw, 1.6rem)
-    clamp(1.35rem, 2.4vw, 1.9rem) 0;
+  padding: clamp(1.35rem, 2.4vw, 2rem) clamp(1.25rem, 2.4vw, 2rem);
 }
 
-selector .elw-data__item + .elw-data__item {
-  padding-left: clamp(1rem, 2vw, 1.6rem);
-  border-left: 1px solid var(--elw-border);
+selector .elw-hero-data__item + .elw-hero-data__item {
+  border-left: 1px solid var(--elw-glass-hairline);
 }
 
-selector .elw-data__figure {
+selector .elw-hero-data__figure {
   display: block;
   color: var(--elw-black);
   font-size: clamp(1.75rem, 3vw, 2.5rem);
@@ -439,9 +680,9 @@ selector .elw-data__figure {
   font-variant-numeric: tabular-nums;
 }
 
-selector .elw-data__label {
+selector .elw-hero-data__label {
   display: block;
-  margin-top: 0.85rem;
+  margin-top: 0.8rem;
   color: var(--elw-neutral);
   font-size: 11px;
   font-weight: 600;
@@ -450,116 +691,122 @@ selector .elw-data__label {
   text-transform: uppercase;
 }
 
-/* ----------------------------------------------------------------
-   F. FOOTNOTE
----------------------------------------------------------------- */
+/* ============================================================
+   FOOTNOTE
+   ============================================================ */
 
-selector .elw-hero__footnote {
-  max-width: 62ch;
-  margin: clamp(1.35rem, 2.2vw, 1.85rem) 0 0;
+selector .elw-hero-footnote {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 82rem);
+  max-width: 82rem;
+  margin: clamp(1.25rem, 2vw, 1.75rem) auto 0;
   color: var(--elw-neutral);
   font-size: 12px;
   font-weight: 400;
   line-height: 1.7;
-  animation: elw-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.48s both;
 }
 
-/* ----------------------------------------------------------------
-   MOTION
----------------------------------------------------------------- */
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
 
-@keyframes elw-enter {
-  from {
-    opacity: 0;
-    transform: translateY(1.5rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+selector .elw-reveal {
+  opacity: 0;
+  transform: translateY(1.75rem);
+  transition:
+    opacity 0.7s var(--elw-ease) var(--elw-delay, 0ms),
+    transform 0.7s var(--elw-ease) var(--elw-delay, 0ms);
 }
 
-@keyframes elw-title-line {
-  from {
-    transform: scaleX(0);
-  }
-
-  to {
-    transform: scaleX(1);
-  }
+selector .elw-hero-section.elw-is-visible .elw-reveal {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* ----------------------------------------------------------------
+selector .elw-reveal--d1 { --elw-delay: 0ms; }
+selector .elw-reveal--d2 { --elw-delay: 70ms; }
+selector .elw-reveal--d3 { --elw-delay: 140ms; }
+selector .elw-reveal--d4 { --elw-delay: 210ms; }
+selector .elw-reveal--d5 { --elw-delay: 280ms; }
+selector .elw-reveal--d6 { --elw-delay: 350ms; }
+selector .elw-reveal--d7 { --elw-delay: 420ms; }
+selector .elw-reveal--d8 { --elw-delay: 490ms; }
+
+/* ============================================================
    RESPONSIVE
----------------------------------------------------------------- */
+   ============================================================ */
 
 @media (max-width: 64rem) {
-  selector .elw-hero__layout {
+  selector .elw-hero-section__layout {
     grid-template-columns: minmax(0, 1fr);
   }
 
   selector .elw-title {
-    max-width: 18ch;
-  }
-
-  selector .elw-cred {
-    width: min(100%, 44rem);
+    max-width: 20ch;
   }
 }
 
 @media (max-width: 47.9375rem) {
-  selector .elw-hero {
-    padding-inline: clamp(1rem, 5vw, 1.5rem);
+  selector .elw-hero-section {
+    padding-inline: clamp(0.9rem, 4vw, 1.5rem);
   }
 
-  selector .elwahidi-brand-line {
+  selector .elw-hero-eyebrow {
     flex-wrap: wrap;
-    row-gap: 0.7rem;
+    row-gap: 0.6rem;
   }
 
-  selector .elwahidi-brand-divider {
-    flex: 1 1 2.5rem;
+  selector .elw-hero-eyebrow__divider {
+    flex: 1 1 2rem;
     width: auto;
   }
 
   selector .elw-title {
     max-width: none;
-    font-size: clamp(2.25rem, 11vw, 3.5rem);
+    font-size: clamp(2.15rem, 10.5vw, 3.4rem);
   }
 
-  selector .elw-hero__actions {
+  selector .elw-hero-panel__actions {
     flex-direction: column;
     align-items: stretch;
   }
 
-  selector .elw-btn {
+  selector .elw-hero-btn {
     width: 100%;
   }
 
-  selector .elw-data {
+  selector .elw-hero-data {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  selector .elw-data__item {
-    padding-right: 0;
+  selector .elw-hero-data__surface {
+    grid-area: 1 / 1 / 4 / 2;
   }
 
-  selector .elw-data__item + .elw-data__item {
-    padding-left: 0;
-    border-top: 1px solid var(--elw-border);
+  selector .elw-hero-data__item + .elw-hero-data__item {
+    border-top: 1px solid var(--elw-glass-hairline);
     border-left: 0;
   }
 }
 
 @media (max-width: 30rem) {
-  selector .elwahidi-brand-location {
+  selector .elw-hero-eyebrow > span:last-child {
     flex: 0 0 100%;
-    padding-left: 2.4rem;
+    padding-left: 2.2rem;
   }
 
-  selector .elwahidi-brand-divider {
-    margin-right: 0;
+  selector .elw-hero-card__row-arrow {
+    grid-row: 1 / span 2;
+  }
+}
+
+/* Graceful fallback where backdrop-filter is unsupported. */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  selector .elw-hero-panel__surface,
+  selector .elw-hero-card__surface,
+  selector .elw-hero-data__surface {
+    background: rgb(255 255 255 / 0.94);
   }
 }
 
@@ -569,5 +816,15 @@ selector .elw-hero__footnote {
   selector *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+
+  selector .elw-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  selector .elw-title > span::after,
+  selector .elw-hero-card__title > span::after {
+    transform: scaleX(1);
   }
 }
