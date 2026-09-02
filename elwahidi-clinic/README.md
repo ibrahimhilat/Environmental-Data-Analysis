@@ -28,6 +28,29 @@ Three `[[REPLACE]]` markers in `hero-section.html`:
 - `JMC Reg. 00000` — Jordan Medical Council registration number
 - Optionally set `--elw-hero-photo` in the CSS to a real operating-theatre photograph
 
+## The brand palette
+
+The brand blue is **`#2E9CC5`**. Measured, it is **3.14:1 on white** — below the 4.5:1
+floor — so it cannot carry small text, and a white-on-brand button fails at the same
+3.14:1. Using it directly for the CTA would have reintroduced the defect this rework
+removed.
+
+So the whole blue family is derived from **the brand's own hue (196.3°)** at different
+lightness steps. Every token below is visibly the same blue as `#2E9CC5`, and each one
+passes where it is used:
+
+| Token | Value | Contrast | Used for |
+|---|---|---|---|
+| `--elw-primary` | `#2E9CC5` | 3.14:1 on white | Fills, rules, the specialty bar, large marks — **never small text** |
+| `--elw-primary-deep` | `#1F6984` | 6.15:1 on white | Icons, index numbers, tick rule, tertiary link |
+| `--elw-cta` | `#19556B` | 8.23:1 with white | Primary button, focus ring |
+| `--elw-cta-hover` | `#103846` | 12.53:1 with white | Primary button hover |
+| `--elw-soft-blue` | `#83C8E2` | tint | Title highlight bar only |
+| `--elw-accent` | `#F59327` | 6.29:1 on ink | The primary action's hover icon, nothing else |
+
+To rebrand later, change `--elw-primary` and re-derive the rest at the same hue —
+lightness 32% / 26% / 17% / 70%.
+
 ## What changed and why
 
 ### Accessibility (the blocking defects)
@@ -49,8 +72,8 @@ The `trust-authority-conversion` pattern specifies *"Navy/Grey corporate. Trust 
 **Accent for CTA only.**"* The original inverted this:
 
 - **The primary CTA was the palest element on the page** — `#68B7EE` with black text,
-  weaker than the secondary button beside it. It is now deep steel `#0B4A66` with white
-  text (9.6:1), carrying the only shadow in the composition.
+  weaker than the secondary button beside it. It is now `--elw-cta #19556B` with white
+  text (8.23:1), carrying the only shadow in the composition.
 - **The orange accent was spent on a decorative eyebrow dot.** It is now reserved
   entirely for the primary action's hover state, and the warm radial was removed from
   the ambient wash — that warmth was reading as spa, not theatre.

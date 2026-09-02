@@ -9,13 +9,17 @@
    ============================================================ */
 
 .elw-scope {
-  /* ── Brand ───────────────────────────────────────────────── */
-  --elw-primary: #1892C2;            /* brand blue — large areas only */
-  --elw-primary-deep: #0E6E96;       /* 5.7:1 on white — icons, small marks */
-  --elw-cta: #0B4A66;                /* deep steel — primary action, 9.6:1 w/ white */
-  --elw-cta-hover: #0A2C3F;
+  /* ── Brand ───────────────────────────────────────────────────
+     Everything below is one hue (196.3deg, the brand's own) held at
+     different lightness steps, so the whole family reads as #2E9CC5.
+     #2E9CC5 itself is 3.14:1 on white: it carries fills, rules and
+     large marks, never small text and never a white-on-brand button. */
+  --elw-primary: #2E9CC5;            /* BRAND — fills, rules, large marks */
+  --elw-primary-deep: #1F6984;       /* 6.15:1 — icons, small marks, links */
+  --elw-cta: #19556B;                /* primary action, 8.23:1 with white */
+  --elw-cta-hover: #103846;          /* 12.53:1 with white */
   --elw-accent: #F59327;             /* RESERVED for the primary action only */
-  --elw-soft-blue: #68B7EE;
+  --elw-soft-blue: #83C8E2;          /* brand tint — title highlight only */
 
   /* ── Ink scale (was: near-black + #969696, which failed 4.5:1) ── */
   --elw-ink: #0A2C3F;                /* headings — 14.5:1 */
@@ -95,9 +99,9 @@
   z-index: 0;
   inset: -18% -10%;
   background:
-    radial-gradient(40rem 30rem at 6% 0%, rgb(104 183 238 / 0.52), transparent 62%),
-    radial-gradient(32rem 28rem at 97% 16%, rgb(24 146 194 / 0.36), transparent 64%),
-    radial-gradient(36rem 32rem at 30% 92%, rgb(11 74 102 / 0.14), transparent 68%);
+    radial-gradient(40rem 30rem at 6% 0%, rgb(131 200 226 / 0.52), transparent 62%),
+    radial-gradient(32rem 28rem at 97% 16%, rgb(46 156 197 / 0.36), transparent 64%),
+    radial-gradient(36rem 32rem at 30% 92%, rgb(25 85 107 / 0.14), transparent 68%);
   pointer-events: none;
 }
 
@@ -183,8 +187,8 @@
   inset: 0;
   background: linear-gradient(
     308deg,
-    rgb(104 183 238 / 0.22) 0%,
-    rgb(104 183 238 / 0.05) 24%,
+    rgb(131 200 226 / 0.22) 0%,
+    rgb(131 200 226 / 0.05) 24%,
     rgb(255 255 255 / 0) 52%
   );
   content: "";
@@ -370,7 +374,7 @@
 }
 
 .elw-scope .elw-hero-chip--key {
-  border-color: rgb(14 110 150 / 0.4);
+  border-color: rgb(31 105 132 / 0.4);
   background: rgb(255 255 255 / 0.85);
   color: var(--elw-ink);
 }
@@ -592,7 +596,7 @@
   background: var(--elw-cta);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.18),
-    0 0.5rem 1.25rem rgb(11 74 102 / 0.26);
+    0 0.5rem 1.25rem rgb(25 85 107 / 0.26);
   color: var(--elw-white);
 }
 
@@ -604,7 +608,7 @@
 .elw-scope .elw-hero-btn--primary:hover .elw-hero-btn__icon { color: var(--elw-accent); }
 
 .elw-scope .elw-hero-btn--secondary {
-  border-color: rgb(11 74 102 / 0.28);
+  border-color: rgb(25 85 107 / 0.28);
   background: rgb(255 255 255 / 0.66);
   color: var(--elw-ink);
   -webkit-backdrop-filter: blur(14px) saturate(1.5);
