@@ -429,7 +429,11 @@ export class DigestiveSystem extends HTMLElement {
           this.clear();
         }
       });
-      g.addEventListener("focus", () => { this.#hover(id); this.#ringTo(g); });
+      // :focus-visible so the ring answers the keyboard, not every mouse click
+      g.addEventListener("focus", () => {
+        this.#hover(id);
+        this.#ringTo(g.matches(":focus-visible") ? g : null);
+      });
       g.addEventListener("blur", () => { this.#hover(null); this.#ringTo(null); });
     }
   }
