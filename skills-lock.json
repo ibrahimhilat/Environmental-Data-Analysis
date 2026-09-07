@@ -19,6 +19,13 @@
       "sourceType": "github",
       "sourceCommit": "6e60b5e22419464b4853e01ddb6c0e6f6659a733",
       "skillPath": ".claude/skills/img2threejs/SKILL.md"
+    },
+    "image-to-svg": {
+      "source": "ujo78/imagetosvg-mcp",
+      "sourceType": "github",
+      "sourceCommit": "125cae2eab4ae636cd3213b401b40b90d24c1ab6",
+      "sourcePath": "skill/SKILL.md",
+      "skillPath": ".claude/skills/image-to-svg/SKILL.md"
     }
   }
 }
