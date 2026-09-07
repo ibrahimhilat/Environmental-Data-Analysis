@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>&lt;digestive-system&gt; — usage</title>
+<link rel="stylesheet" href="digestive-system.css">
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0; padding: clamp(16px, 4vw, 48px);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: #0f2733; background: #f6fbfe;
+    display: grid; gap: 32px;
+    grid-template-columns: minmax(280px, 460px) minmax(300px, 1fr);
+    align-items: start;
+  }
+  @media (max-width: 760px) { body { grid-template-columns: 1fr; } }
+  h1 { font-size: clamp(20px, 4vw, 28px); margin: 0 0 4px; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .08em;
+       color: #4a7691; margin: 28px 0 8px; }
+  p.lede { margin: 0 0 20px; color: #46687c; }
+  fieldset { border: 1px solid #cfe3ef; border-radius: 12px; margin: 0 0 16px;
+             padding: 12px 14px; }
+  legend { padding: 0 6px; font-size: 13px; color: #4a7691; }
+  label { display: inline-flex; align-items: center; gap: 6px; margin: 4px 12px 4px 0;
+          min-height: 32px; }
+  button { min-height: 44px; padding: 0 14px; border-radius: 10px; cursor: pointer;
+           border: 1px solid #bcd9e9; background: #fff; font: inherit; }
+  button:hover { background: #eaf6fc; }
+  pre { margin: 0 0 16px; padding: 14px; border-radius: 12px; overflow-x: auto;
+        background: #0e2231; color: #d7ecf7; font-size: 13px; line-height: 1.55; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  #log { margin: 0; padding: 10px 14px; border-radius: 10px; background: #fff;
+         border: 1px solid #cfe3ef; min-height: 44px; font-size: 14px; }
+  .stage { padding: 12px; background: #fff; border: 1px solid #dceaf3;
+           border-radius: 16px; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #dceefa; background: #0a1620; }
+    .stage { background: #0f2231; border-color: #1e3b50; }
+    fieldset, #log, button { border-color: #1e3b50; background: #0f2231; color: inherit; }
+    p.lede, legend, h2 { color: #8fb6cd; }
+  }
+</style>
+</head>
+<body>
+
+<div>
+  <h1>&lt;digestive-system&gt;</h1>
+  <p class="lede">One custom element, no dependencies. Hover, click or tab
+     through the organs.</p>
+
+  <div class="stage">
+    <digestive-system id="demo" interactive caption></digestive-system>
+  </div>
+
+  <fieldset>
+    <legend>Attributes</legend>
+    <label><input type="checkbox" id="t-interactive" checked> interactive</label>
+    <label><input type="checkbox" id="t-labels"> labels</label>
+    <label><input type="checkbox" id="t-caption" checked> caption</label>
+    <label><input type="checkbox" id="t-ar"> lang="ar"</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Theme (CSS custom properties)</legend>
+    <button data-theme="">Default</button>
+    <button data-theme="violet">Violet</button>
+    <button data-theme="emerald">Emerald</button>
+    <button data-theme="amber">Amber</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>API</legend>
+    <button id="pick">select('stomach')</button>
+    <button id="clear">clear()</button>
+  </fieldset>
+
+  <p id="log">events appear here</p>
+</div>
+
+<div>
+  <h2>1. Plain HTML</h2>
+<pre><code>&lt;link rel="stylesheet" href="digestive-system.css"&gt;
+&lt;script type="module" src="digestive-system.js"&gt;&lt;/script&gt;
+
+&lt;digestive-system interactive labels caption lang="ar"&gt;&lt;/digestive-system&gt;
+
+&lt;script type="module"&gt;
+  document.querySelector('digestive-system')
+    .addEventListener('organ-select', e =&gt; console.log(e.detail.id));
+&lt;/script&gt;</code></pre>
+
+  <h2>2. React / Next.js</h2>
+<pre><code>import { useEffect, useRef } from 'react';
+import 'digestive-system/digestive-system.css';
+
+export function DigestiveSystem({ onSelect, lang = 'en' }) {
+  const ref = useRef(null);
+  useEffect(() =&gt; { import('digestive-system/digestive-system.js'); }, []);
+  useEffect(() =&gt; {
+    const el = ref.current;
+    const h = e =&gt; onSelect?.(e.detail);
+    el.addEventListener('organ-select', h);
+    return () =&gt; el.removeEventListener('organ-select', h);
+  }, [onSelect]);
+  return &lt;digestive-system ref={ref} interactive caption lang={lang} /&gt;;
+}</code></pre>
+  <p class="lede">In Next.js load it from a client component
+     (<code>'use client'</code>); custom elements need the DOM.</p>
+
+  <h2>3. Just the picture</h2>
+<pre><code>&lt;img src="digestive-system.svg" alt="Human digestive system" width="535"&gt;
+
+&lt;!-- or inline, to style it with CSS: --&gt;
+&lt;div class="illustration"&gt;&lt;!-- paste assets/digestive-system.svg --&gt;&lt;/div&gt;</code></pre>
+
+  <h2>4. Theming</h2>
+<pre><code>digestive-system {
+  --ds-rim-1: #c9a6f5;   /* light rim          */
+  --ds-rim-2: #7a4fd8;   /* deep rim / shadow  */
+  --ds-mid:   #d9c2fb;   /* mid tone           */
+  --ds-core:  #f3ebff;   /* bright core        */
+  --ds-glow:  #b98cf5;   /* outer glow         */
+  --ds-dim:   0.2;       /* inactive organs    */
+  max-inline-size: 420px;
+}</code></pre>
+
+  <h2>5. Events &amp; API</h2>
+<pre><code>el.select('large-intestine');   // programmatic selection
+el.clear();                     // drop hover + selection
+el.selected;                    // 'large-intestine' | null
+el.organs;                      // [{ id, en, ar, x, y }, ...]
+
+el.addEventListener('organ-hover',  e =&gt; e.detail.id);
+el.addEventListener('organ-select', e =&gt; e.detail.name);</code></pre>
+  <p class="lede">Organ ids: <code>oesophagus</code>, <code>stomach</code>, <code>duodenum</code>, <code>small-intestine</code>, <code>large-intestine</code>, <code>appendix</code>, <code>rectum</code>.</p>
+</div>
+
+<script type="module" src="digestive-system.js"></script>
+<script type="module">
+  const el = document.getElementById('demo');
+  const log = document.getElementById('log');
+
+  const bind = (id, attr) =>
+    document.getElementById(id).addEventListener('change', (e) => {
+      if (attr === 'lang') {
+        el.setAttribute('lang', e.target.checked ? 'ar' : 'en');
+      } else {
+        e.target.checked ? el.setAttribute(attr, '') : el.removeAttribute(attr);
+      }
+    });
+  bind('t-interactive', 'interactive');
+  bind('t-labels', 'labels');
+  bind('t-caption', 'caption');
+  bind('t-ar', 'lang');
+
+  const THEMES = {
+    '': {},
+    violet:  { '--ds-rim-1': '#c9a6f5', '--ds-rim-2': '#7a4fd8',
+               '--ds-mid': '#d9c2fb', '--ds-core': '#f3ebff',
+               '--ds-glow': '#b98cf5', '--ds-colon-1': '#c3a2f3',
+               '--ds-halo': '#b98cf5', '--ds-halo': '#6fe6bb', '--ds-halo': '#ffc46b', '--ds-colon-2': '#6c42cf' },
+    emerald: { '--ds-rim-1': '#8ef0c8', '--ds-rim-2': '#12876a',
+               '--ds-mid': '#9ff0d3', '--ds-core': '#e6fff5',
+               '--ds-glow': '#6fe6bb', '--ds-colon-1': '#87ecc4',
+               '--ds-colon-2': '#0f7d62' },
+    amber:   { '--ds-rim-1': '#ffd58a', '--ds-rim-2': '#c2691a',
+               '--ds-mid': '#ffe0a6', '--ds-core': '#fff6e4',
+               '--ds-glow': '#ffc46b', '--ds-colon-1': '#ffcf85',
+               '--ds-colon-2': '#b45c12' },
+  };
+  for (const b of document.querySelectorAll('[data-theme]')) {
+    b.addEventListener('click', () => {
+      for (const k of Object.keys(THEMES.violet)) el.style.removeProperty(k);
+      for (const [k, v] of Object.entries(THEMES[b.dataset.theme] || {}))
+        el.style.setProperty(k, v);
+    });
+  }
+
+  document.getElementById('pick').onclick = () => el.select('stomach');
+  document.getElementById('clear').onclick = () => el.clear();
+
+  el.addEventListener('organ-select', (e) => {
+    log.textContent = `organ-select → ${e.detail.id} (${e.detail.name})`;
+  });
+  el.addEventListener('organ-hover', (e) => {
+    if (!el.selected) log.textContent = e.detail.id
+      ? `organ-hover → ${e.detail.id}` : 'events appear here';
+  });
+</script>
+</body>
+</html>
