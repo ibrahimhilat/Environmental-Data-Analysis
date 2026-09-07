@@ -13,6 +13,12 @@
       "sourceCommit": "ccbc15639c97057cbfcf32ecebc38ef716e4bb37",
       "sourcePath": "skills/taste-skill/SKILL.md",
       "skillPath": ".claude/skills/design-taste-frontend/SKILL.md"
+    },
+    "img2threejs": {
+      "source": "img2threejs/img2threejs",
+      "sourceType": "github",
+      "sourceCommit": "6e60b5e22419464b4853e01ddb6c0e6f6659a733",
+      "skillPath": ".claude/skills/img2threejs/SKILL.md"
     }
   }
 }
