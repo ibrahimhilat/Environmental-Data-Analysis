@@ -187,3 +187,82 @@ Also fixed while in the file: the title highlight used an absolutely positioned
 mobile. It is now a per-line background with `box-decoration-break: clone`.
 Palette and type were brought onto the `#2E9CC5` family and Figtree/Noto Sans,
 and `--elwc-neutral: #969696` (2.85:1) was retired.
+
+---
+
+# Health Calculator — BMI / BMR / TDEE
+
+Arabic, RTL, two-step assessment widget. Step 01 takes height and weight and
+records the BMI; step 02 adds age, biological sex and activity level, then a
+modal shows BMI, BMR (Mifflin-St Jeor), TDEE and two deficit targets, with a
+prefilled WhatsApp handoff.
+
+## Files
+
+| File | Where it goes |
+|---|---|
+| `health-calculator.html` | Elementor **HTML widget** (markup + script in one block) |
+| `health-calculator.css` | The widget's **Advanced ▸ Custom CSS** panel |
+| `health-calculator.preview.html` | Standalone build for local checking — not for WordPress |
+
+Regenerate the preview after touching either part:
+
+```sh
+{ echo '<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Al-Wahidi Health Calculator — Preview</title><style>body{margin:0;background:#fff}';
+  sed -E 's/(^|[[:space:]])selector([[:space:]*{,])/\1.elw-scope\2/g' health-calculator.css;
+  echo '</style></head><body><div class="elw-scope">'; cat health-calculator.html; echo '</div></body></html>'; } > health-calculator.preview.html
+```
+
+## What was broken
+
+**The WhatsApp button did not exist.** Its opening `<a` tag was missing, so the
+browser parsed `class="…" href="…" >` as *text* and printed the raw attributes
+inside the modal. `[data-role="whatsapp-link"]` then resolved to `null`, and
+`renderResults()` threw on `whatsappLink.href` — which also killed the BMI
+gauge marker and left the results half-rendered. The tag is back, and the
+message build is its own function with the number and clinic name hoisted to
+`WHATSAPP_NUMBER` / `CLINIC_NAME` at the top of the script.
+
+**The slider fill ran backwards.** The widget is RTL, so the range thumb starts
+at the *right* edge and travels left as the value grows, but the track gradient
+was `90deg` — painted left to right. The colour therefore drained away from the
+thumb instead of trailing it. The gradient is now `to left`, with an explicit
+`direction: rtl` on the input so the two agree in every browser.
+
+**`[hidden]` lost every argument it had.** The `selector [hidden]{display:none}`
+rule sat near the top of the file while `!important` declarations of
+`display: inline-flex / grid / flex` came later, so later-wins source order beat
+it. Three elements JS "hid" stayed on screen: the **عرض نتائجي** submit button
+was visible before any choice was made, the recorded-BMI card showed its `—`
+placeholders on step 01, and the modal only stayed away because of its
+`visibility: hidden`. The `[hidden]` block is now the last rule in the file.
+
+Also fixed:
+
+- Typing in a number box clamped on every keystroke, so `1` on the way to `175`
+  jumped straight to the `120` minimum. Live typing now only syncs values that
+  are already in range; the clamp waits for `change`/`blur`/`Enter`, and
+  `commitAll()` runs before any calculation so an uncommitted box can't leak a
+  stale number into the results.
+- **بدء تقييم جديد** reset the choices but left height, weight, age and the
+  recorded BMI from the previous run.
+- The page behind the modal scrolled freely; `body` overflow is now locked while
+  it's open and restored on close.
+- `closeModal()` was re-entrant — a second call restored focus to whatever the
+  first had already focused.
+- Sliders that were still `hidden` at init never painted their fill, so step 02's
+  age track started blank until first touch.
+- Firefox drew a 14 px thumb against Chrome's 22 px.
+- Keyboard focus was invisible on the choice cards, the sliders and the buttons.
+
+## Before going live
+
+`WHATSAPP_NUMBER` at the top of the script is `962795556563` — the same number
+card 03 and the hero publish. Change it in one place if the clinic's number
+changes.
+
+Verified in headless Chromium: fill tracks the thumb (value 210/220 paints blue
+from the right edge to the 10 % mark, grey beyond it), the results button stays
+hidden until sex and activity are chosen, BMI 26.3 / BMR 1,983 / TDEE 3,074 for
+190 cm · 95 kg · 32 y · male · moderate, the WhatsApp `href` carries the full
+encoded message, restart clears everything, and no console or page errors fire.

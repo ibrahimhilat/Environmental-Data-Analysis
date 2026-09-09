@@ -1,0 +1,727 @@
+<section class="elw-calc-section" aria-labelledby="elw-calc-title" dir="rtl" lang="ar">
+  <div class="elw-calc-section__ambient" aria-hidden="true"></div>
+
+  <div class="elw-calc-container">
+    <header class="elw-calc-header">
+      <div class="elwahidi-brand-line">
+        <span class="elwahidi-brand-mark" aria-hidden="true"><span></span></span>
+        <span class="elwahidi-brand-text">أدوات صحية سريرية</span>
+        <span class="elwahidi-brand-divider" aria-hidden="true"></span>
+        <span class="elwahidi-brand-location">عمّان، الأردن</span>
+      </div>
+
+      <div class="elw-calc-header__layout">
+        <div class="elw-calc-header__copy">
+          <span class="elw-calc-header__index">تقييم تفاعلي / 01—02</span>
+          <h2 class="elw-calc-title" id="elw-calc-title">
+            افهم أرقامك.<br>
+            <span>واستعد لاستشارة أوضح.</span>
+          </h2>
+        </div>
+
+        <p class="elw-calc-header__lead">
+          أكمل تقييم مؤشر كتلة الجسم أولاً، ثم أضف التفاصيل المطلوبة لتقدير
+          معدل الأيض الأساسي واحتياجاتك اليومية من الطاقة.
+        </p>
+      </div>
+    </header>
+
+    <div class="elw-calc-shell">
+      <nav class="elw-calc-progress" aria-label="مراحل الحاسبة">
+        <div class="elw-calc-progress__item is-active" data-progress="bmi">
+          <span class="elw-calc-progress__number">01</span>
+          <span class="elw-calc-progress__copy">
+            <strong>تقييم مؤشر كتلة الجسم</strong>
+            <small>الطول والوزن</small>
+          </span>
+          <span class="elw-calc-progress__status" aria-hidden="true"></span>
+        </div>
+
+        <span class="elw-calc-progress__line" aria-hidden="true"></span>
+
+        <div class="elw-calc-progress__item" data-progress="bmr">
+          <span class="elw-calc-progress__number">02</span>
+          <span class="elw-calc-progress__copy">
+            <strong>معدل الأيض والسعرات</strong>
+            <small>العمر والجنس والنشاط</small>
+          </span>
+          <span class="elw-calc-progress__status" aria-hidden="true"></span>
+        </div>
+      </nav>
+
+      <div class="elw-calc-workspace">
+        <div class="elw-calc-workspace__intro">
+          <span class="elw-calc-workspace__step" data-role="step-label">
+            الخطوة 01 / مؤشر كتلة الجسم
+          </span>
+
+          <h3 class="elw-calc-workspace__title" data-role="step-title">
+            ابدأ بإدخال طولك ووزنك الحالي.
+          </h3>
+
+          <p class="elw-calc-workspace__description" data-role="step-description">
+            تُستخدم هذه القياسات لحساب مؤشر كتلة جسمك.
+            ستُنقل نتيجة المؤشر تلقائيًا إلى الخطوة التالية.
+          </p>
+
+          <div class="elw-calc-workspace__record" data-role="bmi-record" hidden>
+            <span>تم تسجيل المؤشر</span>
+            <strong data-role="recorded-bmi">—</strong>
+            <small data-role="recorded-category">—</small>
+          </div>
+
+          <div class="elw-calc-medical-line" aria-hidden="true">
+            <svg viewBox="0 0 320 52" preserveAspectRatio="none" focusable="false">
+              <path class="elw-calc-medical-line__base" pathLength="100" d="M2 26H69L78 26L85 10L95 42L104 17L114 26H164L171 26L178 15L186 36L194 26H318"></path>
+              <path class="elw-calc-medical-line__active" pathLength="100" d="M2 26H69L78 26L85 10L95 42L104 17L114 26H164L171 26L178 15L186 36L194 26H318">
+                <animate attributeName="stroke-dashoffset" values="100;0" dur="2s" repeatCount="indefinite"></animate>
+              </path>
+              <path class="elw-calc-medical-line__reference" d="M294 8V44"></path>
+            </svg>
+          </div>
+        </div>
+
+        <div class="elw-calc-form-wrap">
+          <form class="elw-calc-form" data-role="calculator-form" novalidate>
+            <div class="elw-calc-step" data-step="bmi">
+
+              <div class="elw-calc-field">
+                <div class="elw-calc-field__header">
+                  <label class="elw-calc-field__label" for="elw-calc-height">الطول</label>
+                  <label class="elw-calc-value" for="elw-calc-height-number">
+                    <input
+                      id="elw-calc-height-number"
+                      data-role="height-number"
+                      type="number"
+                      min="120"
+                      max="220"
+                      value="170"
+                      inputmode="numeric"
+                      aria-label="الطول بالسنتيمتر"
+                    >
+                    <span>سم</span>
+                  </label>
+                </div>
+                <input
+                  class="elw-calc-slider"
+                  id="elw-calc-height"
+                  data-role="height-slider"
+                  type="range"
+                  min="120"
+                  max="220"
+                  value="170"
+                  step="1"
+                >
+                <div class="elw-calc-field__range" aria-hidden="true">
+                  <span>120 سم</span>
+                  <span>220 سم</span>
+                </div>
+              </div>
+
+              <div class="elw-calc-field">
+                <div class="elw-calc-field__header">
+                  <label class="elw-calc-field__label" for="elw-calc-weight">الوزن الحالي</label>
+                  <label class="elw-calc-value" for="elw-calc-weight-number">
+                    <input
+                      id="elw-calc-weight-number"
+                      data-role="weight-number"
+                      type="number"
+                      min="40"
+                      max="270"
+                      value="95"
+                      inputmode="numeric"
+                      aria-label="الوزن بالكيلوغرام"
+                    >
+                    <span>كغم</span>
+                  </label>
+                </div>
+                <input
+                  class="elw-calc-slider"
+                  id="elw-calc-weight"
+                  data-role="weight-slider"
+                  type="range"
+                  min="40"
+                  max="270"
+                  value="95"
+                  step="1"
+                >
+                <div class="elw-calc-field__range" aria-hidden="true">
+                  <span>40 كغم</span>
+                  <span>270 كغم</span>
+                </div>
+              </div>
+
+              <div class="elw-calc-form__footer">
+                <p class="elw-calc-form__note">
+                  مؤشر كتلة الجسم هو مقياس فحص أولي ولا يُعد تشخيصًا لحالة طبية.
+                </p>
+                <button class="elw-calc-button elw-calc-button--primary" type="button" data-action="continue">
+                  <span>المتابعة إلى معدل الأيض</span>
+                  <span class="elw-calc-button__icon" aria-hidden="true">←</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="elw-calc-step" data-step="bmr" hidden>
+
+              <div class="elw-calc-field">
+                <div class="elw-calc-field__header">
+                  <label class="elw-calc-field__label" for="elw-calc-age">العمر</label>
+                  <label class="elw-calc-value" for="elw-calc-age-number">
+                    <input
+                      id="elw-calc-age-number"
+                      data-role="age-number"
+                      type="number"
+                      min="18"
+                      max="80"
+                      value="32"
+                      inputmode="numeric"
+                      aria-label="العمر بالسنوات"
+                    >
+                    <span>سنة</span>
+                  </label>
+                </div>
+                <input
+                  class="elw-calc-slider"
+                  id="elw-calc-age"
+                  data-role="age-slider"
+                  type="range"
+                  min="18"
+                  max="80"
+                  value="32"
+                  step="1"
+                >
+                <div class="elw-calc-field__range" aria-hidden="true">
+                  <span>18 سنة</span>
+                  <span>80 سنة</span>
+                </div>
+              </div>
+
+              <fieldset class="elw-calc-choice-group">
+                <legend class="elw-calc-field__label">الجنس البيولوجي</legend>
+                <div class="elw-calc-choice-grid elw-calc-choice-grid--two">
+                  <button class="elw-calc-choice" type="button" data-gender="male" aria-pressed="false">
+                    <span class="elw-calc-choice__indicator" aria-hidden="true"></span>
+                    <span>
+                      <strong>ذكر</strong>
+                      <small>وفق معادلة ميفلين-سانت جيور</small>
+                    </span>
+                  </button>
+                  <button class="elw-calc-choice" type="button" data-gender="female" aria-pressed="false">
+                    <span class="elw-calc-choice__indicator" aria-hidden="true"></span>
+                    <span>
+                      <strong>أنثى</strong>
+                      <small>وفق معادلة ميفلين-سانت جيور</small>
+                    </span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <fieldset class="elw-calc-choice-group">
+                <legend class="elw-calc-field__label">مستوى النشاط اليومي</legend>
+                <div class="elw-calc-choice-grid elw-calc-choice-grid--activity">
+                  <button class="elw-calc-choice" type="button" data-activity="1.2" aria-pressed="false">
+                    <span class="elw-calc-choice__indicator" aria-hidden="true"></span>
+                    <span><strong>خامل</strong><small>قليل التمارين أو بدون تمارين</small></span>
+                  </button>
+                  <button class="elw-calc-choice" type="button" data-activity="1.375" aria-pressed="false">
+                    <span class="elw-calc-choice__indicator" aria-hidden="true"></span>
+                    <span><strong>نشاط خفيف</strong><small>تمارين 1–3 أيام/أسبوع</small></span>
+                  </button>
+                  <button class="elw-calc-choice" type="button" data-activity="1.55" aria-pressed="false">
+                    <span class="elw-calc-choice__indicator" aria-hidden="true"></span>
+                    <span><strong>نشاط متوسط</strong><small>تمارين 3–5 أيام/أسبوع</small></span>
+                  </button>
+                  <button class="elw-calc-choice" type="button" data-activity="1.725" aria-pressed="false">
+                    <span class="elw-calc-choice__indicator" aria-hidden="true"></span>
+                    <span><strong>نشاط عالٍ</strong><small>تمارين 6–7 أيام/أسبوع</small></span>
+                  </button>
+                  <button class="elw-calc-choice" type="button" data-activity="1.9" aria-pressed="false">
+                    <span class="elw-calc-choice__indicator" aria-hidden="true"></span>
+                    <span><strong>نشاط مكثف جدًا</strong><small>عمل بدني أو تدريب مكثف</small></span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <p class="elw-calc-form__validation" data-role="validation" aria-live="polite"></p>
+
+              <div class="elw-calc-form__footer elw-calc-form__footer--split">
+                <button class="elw-calc-button elw-calc-button--secondary" type="button" data-action="back">
+                  <span class="elw-calc-button__icon" aria-hidden="true">→</span>
+                  <span>تعديل بيانات المؤشر</span>
+                </button>
+                <button class="elw-calc-button elw-calc-button--primary" type="submit" data-action="results" hidden>
+                  <span>عرض نتائجي</span>
+                  <span class="elw-calc-button__icon" aria-hidden="true">↖</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="elw-calc-modal" data-role="results-modal" hidden>
+    <div class="elw-calc-modal__backdrop" data-action="close-modal"></div>
+
+    <div class="elw-calc-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="elw-calc-results-title" tabindex="-1">
+      <button class="elw-calc-modal__close" type="button" data-action="close-modal" aria-label="إغلاق النتائج">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <div class="elw-calc-modal__eyebrow">
+        <span class="elw-calc-modal__pulse" aria-hidden="true"><span></span></span>
+        <span>تقدير صحي شخصي</span>
+      </div>
+
+      <div class="elw-calc-modal__header">
+        <span class="elw-calc-modal__index">اكتمل التقييم / 02</span>
+        <h3 class="elw-calc-modal__title" id="elw-calc-results-title">
+          أرقامك الصحية<br><span>المُقدّرة.</span>
+        </h3>
+        <p>
+          هذه النتائج تقديرات فحص أولية للبالغين، ويجب تفسيرها بالتوازي مع
+          تاريخك الطبي وتقييم سريري.
+        </p>
+      </div>
+
+      <div class="elw-calc-results">
+        <article class="elw-calc-result-card elw-calc-result-card--featured">
+          <span class="elw-calc-result-card__label">مؤشر كتلة الجسم</span>
+          <strong class="elw-calc-result-card__value" data-result="bmi">—</strong>
+          <span class="elw-calc-result-card__status" data-result="bmi-category">—</span>
+          <div class="elw-calc-gauge" aria-hidden="true">
+            <span class="elw-calc-gauge__track"></span>
+            <span class="elw-calc-gauge__marker" data-result="bmi-marker"></span>
+          </div>
+        </article>
+
+        <article class="elw-calc-result-card">
+          <span class="elw-calc-result-card__label">معدل الأيض الأساسي</span>
+          <strong class="elw-calc-result-card__value" data-result="bmr">—</strong>
+          <span class="elw-calc-result-card__unit">سعرة حرارية / يوم أثناء الراحة</span>
+        </article>
+
+        <article class="elw-calc-result-card">
+          <span class="elw-calc-result-card__label">الطاقة اليومية المقدّرة</span>
+          <strong class="elw-calc-result-card__value" data-result="tdee">—</strong>
+          <span class="elw-calc-result-card__unit">سعرة حرارية / يوم مع النشاط</span>
+        </article>
+      </div>
+
+      <div class="elw-calc-targets">
+        <div class="elw-calc-targets__item">
+          <span>الحفاظ على الوزن</span>
+          <strong data-result="maintain">—</strong>
+        </div>
+        <div class="elw-calc-targets__item elw-calc-targets__item--highlight">
+          <span>عجز معتدل</span>
+          <strong data-result="modest">—</strong>
+          <small>الطاقة المقدّرة −250 سعرة</small>
+        </div>
+        <div class="elw-calc-targets__item">
+          <span>عجز أكبر</span>
+          <strong data-result="larger">—</strong>
+          <small>الطاقة المقدّرة −500 سعرة</small>
+        </div>
+      </div>
+
+      <div class="elw-calc-insight">
+        <span class="elw-calc-insight__line" aria-hidden="true"></span>
+        <div>
+          <strong data-result="insight-title">السياق السريري</strong>
+          <p data-result="insight-copy">—</p>
+        </div>
+      </div>
+
+      <div class="elw-calc-modal__actions">
+        <a
+          class="elw-calc-button elw-calc-button--whatsapp"
+          data-role="whatsapp-link"
+          href="https://wa.me/962795556563"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="elw-calc-button__whatsapp" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.2-4.1A8.5 8.5 0 1 1 20 11.5Z"></path>
+              <path d="M8.5 8.5c.8 3 2 4.2 5 5"></path>
+            </svg>
+          </span>
+          <span>إرسال النتائج عبر واتساب</span>
+          <span class="elw-calc-button__icon" aria-hidden="true">↖</span>
+        </a>
+
+        <button class="elw-calc-modal__restart" type="button" data-action="restart">
+          بدء تقييم جديد
+        </button>
+      </div>
+
+      <p class="elw-calc-modal__disclaimer">
+        أرقام مؤشر كتلة الجسم ومعدل الأيض والسعرات الحرارية هي تقديرات للبالغين
+        من عمر 18 عامًا فأكثر، ولا تُعد تشخيصًا أو وصفة غذائية شخصية.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      /* [[REPLACE]] the clinic's real WhatsApp number, digits only, with country code. */
+      var WHATSAPP_NUMBER = "962795556563";
+      var CLINIC_NAME = "عيادة الوحيدي";
+
+      var DEFAULTS = { height: 170, weight: 95, age: 32 };
+
+      function initializeCalculator(section) {
+        if (!section || section.dataset.elwCalculatorReady === "true") return;
+        section.dataset.elwCalculatorReady = "true";
+
+        var state = {
+          step: "bmi",
+          height: DEFAULTS.height,
+          weight: DEFAULTS.weight,
+          age: DEFAULTS.age,
+          gender: "",
+          activity: 0,
+          activityLabel: ""
+        };
+
+        var query = function (sel) { return section.querySelector(sel); };
+        var queryAll = function (sel) { return Array.prototype.slice.call(section.querySelectorAll(sel)); };
+        var clamp = function (n, mn, mx) { return Math.max(mn, Math.min(mx, n)); };
+
+        var form = query('[data-role="calculator-form"]');
+        var bmiStep = query('[data-step="bmi"]');
+        var bmrStep = query('[data-step="bmr"]');
+        var continueButton = query('[data-action="continue"]');
+        var backButton = query('[data-action="back"]');
+        var resultsButton = query('[data-action="results"]');
+        var validation = query('[data-role="validation"]');
+        var modal = query('[data-role="results-modal"]');
+        var modalDialog = query(".elw-calc-modal__dialog");
+        var whatsappLink = query('[data-role="whatsapp-link"]');
+        var previousFocus = null;
+        var previousBodyOverflow = "";
+
+        var heightSlider = query('[data-role="height-slider"]');
+        var heightNumber = query('[data-role="height-number"]');
+        var weightSlider = query('[data-role="weight-slider"]');
+        var weightNumber = query('[data-role="weight-number"]');
+        var ageSlider = query('[data-role="age-slider"]');
+        var ageNumber = query('[data-role="age-number"]');
+
+        if (!form || !modal || !heightSlider || !weightSlider || !ageSlider) return;
+
+        var commits = [];
+
+        function sliderFill(slider) {
+          var min = Number(slider.min);
+          var max = Number(slider.max);
+          var span = max - min;
+          var pct = span > 0 ? ((Number(slider.value) - min) / span) * 100 : 0;
+          slider.style.setProperty("--elw-fill", clamp(pct, 0, 100) + "%");
+        }
+
+        /* The number box and the slider are two views of one value. `input`
+           keeps them live while the value is still legal; the clamp waits for
+           `blur`/`change`, so typing "1" on the way to "175" is not eaten. */
+        function bindMeasurement(slider, numberInput, key) {
+          var min = Number(slider.min);
+          var max = Number(slider.max);
+
+          function commit() {
+            var raw = String(numberInput.value).trim();
+            var value = raw === "" ? Number(slider.value) : Number(raw);
+            if (!isFinite(value)) value = Number(slider.value);
+            value = Math.round(clamp(value, min, max));
+            slider.value = value;
+            numberInput.value = value;
+            state[key] = value;
+            sliderFill(slider);
+          }
+
+          commits.push(commit);
+          state[key] = Math.round(clamp(Number(slider.value), min, max));
+          numberInput.value = slider.value;
+          sliderFill(slider);
+
+          slider.addEventListener("input", function () {
+            numberInput.value = slider.value;
+            state[key] = Number(slider.value);
+            sliderFill(slider);
+          });
+
+          numberInput.addEventListener("input", function () {
+            var raw = String(numberInput.value).trim();
+            if (raw === "") return;
+            var value = Number(raw);
+            if (!isFinite(value) || value < min || value > max) return;
+            slider.value = value;
+            state[key] = value;
+            sliderFill(slider);
+          });
+
+          numberInput.addEventListener("change", commit);
+          numberInput.addEventListener("blur", commit);
+          numberInput.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") { event.preventDefault(); commit(); }
+          });
+        }
+
+        function commitAll() {
+          commits.forEach(function (commit) { commit(); });
+        }
+
+        function getBmi() {
+          var metres = state.height / 100;
+          if (!metres) return 0;
+          return state.weight / (metres * metres);
+        }
+
+        function getBmiCategory(bmi) {
+          if (bmi < 18.5) return { label: "أقل من النطاق الصحي", color: "#68B7EE", copy: "مؤشر كتلة جسمك أقل من النطاق المرجعي الصحي القياسي للبالغين. يمكن للتقييم السريري أن يأخذ بعين الاعتبار التغذية والتاريخ الطبي والصحة العامة." };
+          if (bmi < 25) return { label: "وزن صحي", color: "#1892C2", copy: "يقع مؤشر كتلة جسمك ضمن النطاق المرجعي الصحي القياسي للبالغين. يبقى المؤشر جزءًا واحدًا من تقييم أوسع للصحة." };
+          if (bmi < 30) return { label: "زيادة في الوزن", color: "#969696", copy: "يمكن للتقييم الشخصي أن يساعد في مراجعة الصحة الأيضية وخيارات التغذية والنشاط أو إدارة الوزن الطبية المناسبة." };
+          if (bmi < 35) return { label: "سمنة من الدرجة الأولى", color: "#2E9CC5", copy: "يمكن للتقييم السريري مراجعة الحالات المرتبطة بالوزن ومناقشة الخيارات الطبية أو الجراحية القائمة على الأدلة عند الحاجة." };
+          if (bmi < 40) return { label: "سمنة من الدرجة الثانية", color: "#1892C2", copy: "يُنصح بإجراء تقييم طبي شامل لمراجعة الصحة الأيضية وخيارات العلاج المناسبة القائمة على الأدلة." };
+          return { label: "سمنة من الدرجة الثالثة", color: "#000000", copy: "يُنصح بإجراء تقييم متخصص لمناقشة خيارات العلاج الطبي والجراحي الآمنة والقائمة على الأدلة وفق ملفك الصحي الكامل." };
+        }
+
+        function getResults() {
+          var bmi = getBmi();
+          var category = getBmiCategory(bmi);
+          var adjustment = state.gender === "male" ? 5 : -161;
+          var bmr = Math.round(10 * state.weight + 6.25 * state.height - 5 * state.age + adjustment);
+          var activity = state.activity || 1.2;
+          var tdee = Math.round(bmr * activity);
+          return {
+            bmi: bmi,
+            category: category,
+            bmr: bmr,
+            tdee: tdee,
+            maintain: tdee,
+            modest: Math.max(0, tdee - 250),
+            larger: Math.max(0, tdee - 500)
+          };
+        }
+
+        function updateProgress() {
+          var bmiProgress = query('[data-progress="bmi"]');
+          var bmrProgress = query('[data-progress="bmr"]');
+          bmiProgress.classList.toggle("is-active", state.step === "bmi");
+          bmiProgress.classList.toggle("is-complete", state.step === "bmr");
+          bmrProgress.classList.toggle("is-active", state.step === "bmr");
+        }
+
+        function showStep(step) {
+          state.step = step;
+          var isBmi = step === "bmi";
+          bmiStep.hidden = !isBmi;
+          bmrStep.hidden = isBmi;
+          query('[data-role="step-label"]').textContent = isBmi ? "الخطوة 01 / مؤشر كتلة الجسم" : "الخطوة 02 / معدل الأيض";
+          query('[data-role="step-title"]').textContent = isBmi ? "ابدأ بإدخال طولك ووزنك الحالي." : "أكمل ملفك الأيضي.";
+          query('[data-role="step-description"]').textContent = isBmi
+            ? "تُستخدم هذه القياسات لحساب مؤشر كتلة جسمك. ستُنقل نتيجة المؤشر تلقائيًا إلى الخطوة التالية."
+            : "أضف عمرك وجنسك البيولوجي ومستوى نشاطك. سيظهر الزر النهائي بعد اختيار كل المعلومات المطلوبة.";
+          query('[data-role="bmi-record"]').hidden = isBmi;
+          updateProgress();
+          /* Range inputs only paint their fill once they are visible. */
+          [heightSlider, weightSlider, ageSlider].forEach(sliderFill);
+          window.setTimeout(function () {
+            (isBmi ? heightSlider : ageSlider).focus({ preventScroll: true });
+          }, 100);
+        }
+
+        function updateFinalButton() {
+          var complete = Boolean(state.gender && state.activity);
+          resultsButton.hidden = !complete;
+          if (complete) {
+            validation.textContent = "تقييمك جاهز للحساب.";
+            validation.classList.add("is-success");
+          } else {
+            validation.textContent = "اختر الجنس البيولوجي ومستوى النشاط للمتابعة.";
+            validation.classList.remove("is-success");
+          }
+        }
+
+        function buildWhatsappMessage(results, formatNumber) {
+          var genderLabel = state.gender === "male" ? "ذكر" : "أنثى";
+          var lines = [
+            "مرحبًا " + CLINIC_NAME + "، أكملت حاسبة الصحة على الموقع وهذه نتائجي:",
+            "",
+            "• الطول: " + state.height + " سم",
+            "• الوزن: " + state.weight + " كغم",
+            "• العمر: " + state.age + " سنة",
+            "• الجنس البيولوجي: " + genderLabel,
+            "• مستوى النشاط: " + (state.activityLabel || "غير محدد"),
+            "",
+            "• مؤشر كتلة الجسم: " + results.bmi.toFixed(1) + " (" + results.category.label + ")",
+            "• معدل الأيض الأساسي: " + formatNumber(results.bmr) + " سعرة/يوم",
+            "• الاحتياج اليومي من الطاقة: " + formatNumber(results.tdee) + " سعرة/يوم",
+            "",
+            "أرغب بحجز موعد لتقييم طبي. شكرًا لكم."
+          ];
+          return lines.join("\n");
+        }
+
+        function renderResults() {
+          var results = getResults();
+          var formatNumber = function (value) { return Number(value).toLocaleString("en-US"); };
+
+          query('[data-result="bmi"]').textContent = results.bmi.toFixed(1);
+          var categoryNode = query('[data-result="bmi-category"]');
+          categoryNode.textContent = results.category.label;
+          categoryNode.style.color = results.category.color;
+          query('[data-result="bmr"]').textContent = formatNumber(results.bmr);
+          query('[data-result="tdee"]').textContent = formatNumber(results.tdee);
+          query('[data-result="maintain"]').textContent = formatNumber(results.maintain) + " سعرة";
+          query('[data-result="modest"]').textContent = formatNumber(results.modest) + " سعرة";
+          query('[data-result="larger"]').textContent = formatNumber(results.larger) + " سعرة";
+          query('[data-result="insight-title"]').textContent = results.category.label;
+          query('[data-result="insight-copy"]').textContent = results.category.copy;
+          query('[data-result="bmi-marker"]').style.left = clamp(((results.bmi - 15) / 40) * 100, 0, 100) + "%";
+
+          if (whatsappLink) {
+            whatsappLink.href = "https://wa.me/" + WHATSAPP_NUMBER +
+              "?text=" + encodeURIComponent(buildWhatsappMessage(results, formatNumber));
+          }
+        }
+
+        function getFocusable() {
+          return queryAll('.elw-calc-modal__dialog a[href], .elw-calc-modal__dialog button:not([disabled]), .elw-calc-modal__dialog [tabindex]:not([tabindex="-1"])');
+        }
+
+        function openModal() {
+          previousFocus = document.activeElement;
+          renderResults();
+          modal.hidden = false;
+          previousBodyOverflow = document.body.style.overflow;
+          document.body.style.overflow = "hidden";
+          document.documentElement.classList.add("elw-calc-modal-open");
+          window.requestAnimationFrame(function () {
+            modal.classList.add("is-open");
+            modalDialog.focus({ preventScroll: true });
+          });
+        }
+
+        function closeModal() {
+          if (modal.hidden) return;
+          modal.classList.remove("is-open");
+          document.documentElement.classList.remove("elw-calc-modal-open");
+          document.body.style.overflow = previousBodyOverflow;
+          window.setTimeout(function () {
+            modal.hidden = true;
+            if (previousFocus && previousFocus.focus) previousFocus.focus({ preventScroll: true });
+          }, 240);
+        }
+
+        function restartCalculator() {
+          closeModal();
+          state.gender = "";
+          state.activity = 0;
+          state.activityLabel = "";
+          queryAll("[data-gender], [data-activity]").forEach(function (button) {
+            button.classList.remove("is-selected");
+            button.setAttribute("aria-pressed", "false");
+          });
+          heightNumber.value = DEFAULTS.height;
+          weightNumber.value = DEFAULTS.weight;
+          ageNumber.value = DEFAULTS.age;
+          commitAll();
+          query('[data-role="recorded-bmi"]').textContent = "—";
+          query('[data-role="recorded-category"]').textContent = "—";
+          updateFinalButton();
+          showStep("bmi");
+        }
+
+        bindMeasurement(heightSlider, heightNumber, "height");
+        bindMeasurement(weightSlider, weightNumber, "weight");
+        bindMeasurement(ageSlider, ageNumber, "age");
+
+        continueButton.addEventListener("click", function () {
+          commitAll();
+          var bmi = getBmi();
+          query('[data-role="recorded-bmi"]').textContent = bmi.toFixed(1);
+          query('[data-role="recorded-category"]').textContent = getBmiCategory(bmi).label;
+          showStep("bmr");
+          updateFinalButton();
+        });
+
+        backButton.addEventListener("click", function () { showStep("bmi"); });
+
+        queryAll("[data-gender]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            state.gender = button.dataset.gender;
+            queryAll("[data-gender]").forEach(function (other) {
+              var selected = other === button;
+              other.classList.toggle("is-selected", selected);
+              other.setAttribute("aria-pressed", selected ? "true" : "false");
+            });
+            updateFinalButton();
+          });
+        });
+
+        queryAll("[data-activity]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            state.activity = Number(button.dataset.activity);
+            state.activityLabel = button.querySelector("strong").textContent.trim();
+            queryAll("[data-activity]").forEach(function (other) {
+              var selected = other === button;
+              other.classList.toggle("is-selected", selected);
+              other.setAttribute("aria-pressed", selected ? "true" : "false");
+            });
+            updateFinalButton();
+          });
+        });
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          commitAll();
+          if (!state.gender || !state.activity) { updateFinalButton(); return; }
+          openModal();
+        });
+
+        queryAll('[data-action="close-modal"]').forEach(function (button) {
+          button.addEventListener("click", closeModal);
+        });
+        query('[data-action="restart"]').addEventListener("click", restartCalculator);
+
+        modal.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") { closeModal(); return; }
+          if (event.key !== "Tab") return;
+          var focusable = getFocusable();
+          if (!focusable.length) return;
+          var first = focusable[0];
+          var last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        });
+
+        updateProgress();
+        updateFinalButton();
+      }
+
+      function initAll() {
+        Array.prototype.forEach.call(
+          document.querySelectorAll(".elw-calc-section"),
+          initializeCalculator
+        );
+      }
+
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initAll);
+      else initAll();
+
+      window.addEventListener("load", initAll);
+
+      if (window.jQuery) {
+        window.jQuery(window).on("elementor/frontend/init", function () {
+          if (window.elementorFrontend && window.elementorFrontend.hooks) {
+            window.elementorFrontend.hooks.addAction("frontend/element_ready/html.default", initAll);
+          }
+          initAll();
+        });
+      }
+    })();
+  </script>
+</section>
